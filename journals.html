@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journals | Sambalpur University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; background-color: #f4f4f4; color: #333; }
+        .header { background-color: #800000; color: white; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .header .logo-title h1 { margin: 0; font-size: 2em; font-weight: normal; }
+        .header .logo-title p { margin: 5px 0 0; font-size: 1em; }
+        .navbar { display: flex; background-color: #333; overflow: hidden; position: sticky; top: 0; z-index: 10; }
+        .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 17px; transition: background-color 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #ddd; color: black; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .section-title { text-align: center; font-size: 2.2em; color: #800000; margin-bottom: 30px; }
+        .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
+        .journal-list { list-style: none; padding: 0; }
+        .journal-list li { background: #fff; border: 1px solid #e0e0e0; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        .journal-list li a { text-decoration: none; color: #500000; font-weight: bold; font-size: 1.1em; }
+        .journal-list li a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-title">
+            <h1>Sambalpur University</h1>
+            <p>Department of Biotechnology & Bioinformatics Library</p>
+        </div>
+    </header>
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="databases.html">Databases</a>
+        <a href="journals.html">Journals</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+        <h2 class="section-title">Key Journals</h2>
+        <ul class="journal-list">
+            <li><a href="https://www.nature.com/nbt/" target="_blank">Nature Biotechnology</a></li>
+            <li><a href="https://www.cell.com/cell/home" target="_blank">Cell</a></li>
+            <li><a href="https://www.science.org/" target="_blank">Science</a></li>
+            <li><a href="https://academic.oup.com/bioinformatics" target="_blank">Bioinformatics</a></li>
+            <li><a href="https://journals.plos.org/ploscompbiol/" target="_blank">PLOS Computational Biology</a></li>
+            <li><a href="https://www.jbc.org/" target="_blank">Journal of Biological Chemistry</a></li>
+        </ul>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

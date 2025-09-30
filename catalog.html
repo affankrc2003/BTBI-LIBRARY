@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Catalog | Sambalpur University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; background-color: #f4f4f4; color: #333; }
+        .header { background-color: #800000; color: white; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+        .header .logo-title h1 { margin: 0; font-size: 2em; font-weight: normal; }
+        .header .logo-title p { margin: 5px 0 0; font-size: 1em; }
+        .navbar { display: flex; background-color: #333; overflow: hidden; position: sticky; top: 0; z-index: 10; }
+        .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 17px; transition: background-color 0.3s, color 0.3s; }
+        .navbar a:hover { background-color: #ddd; color: black; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .section-title { text-align: center; font-size: 2.2em; color: #800000; margin-bottom: 30px; }
+        .filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 8px; }
+        .filter-bar select, .filter-bar input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 1em; }
+        .catalog-subsection { margin-bottom: 40px; }
+        .subsection-title { font-size: 1.8em; color: #500000; margin-bottom: 20px; border-bottom: 2px solid #f0e6e6; padding-bottom: 10px; }
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
+        .book-item { text-align: center; cursor: pointer; } /* Added cursor pointer */
+        .book-item img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+        .book-item img:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
+        .book-item h4 { margin: 10px 0 5px; font-size: 1.1em; color: #333; } /* Adjusted font size */
+        .subject-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 15px; }
+        .subject-list li a { display: block; padding: 10px 20px; background-color: #f0e6e6; color: #800000; text-decoration: none; border-radius: 20px; transition: background-color 0.3s, color 0.3s; }
+        .subject-list li a:hover { background-color: #800000; color: white; }
+        .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-title">
+            <h1>Sambalpur University</h1>
+            <p>Department of Biotechnology & Bioinformatics Library</p>
+        </div>
+    </header>
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="databases.html">Databases</a>
+        <a href="journals.html">Journals</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <div class="container">
+        <section id="catalog">
+            <h2 class="section-title">Library Catalog</h2>
+            <div class="filter-bar">
+                <input type="text" placeholder="Title...">
+                <input type="text" placeholder="Author...">
+                <select>
+                    <option value="">All Types</option>
+                    <option value="book">Book</option>
+                    <option value="ebook">E-Book</option>
+                    <option value="journal">Journal Article</option>
+                    <option value="thesis">Thesis</option>
+                </select>
+                <select>
+                    <option value="">All Subjects</option>
+                    <option value="mol-bio">Molecular Biology</option>
+                    <option value="genetics">Genetics</option>
+                    <option value="bioinfo">Bioinformatics</option>
+                    <option value="biochem">Biochemistry</option>
+                </select>
+                 <button type="button" class="bg-[#800000] text-white px-4 py-2 rounded-md">Filter</button>
+            </div>
+            <div class="catalog-subsection">
+                <h3 class="subsection-title">New Arrivals by Subject</h3>
+                <div class="book-grid">
+                    <div class="book-item" data-subject="Molecular Biology" data-subject-short="Mol bio"><img src="https://placehold.co/300x400/a38383/FFFFFF?text=Molecular+Biology" alt="Book Cover"><h4>Mol bio</h4></div>
+                    <div class="book-item" data-subject="Genetics" data-subject-short="Genetics"><img src="https://placehold.co/300x400/83a383/FFFFFF?text=Genetics" alt="Book Cover"><h4>Genetics</h4></div>
+                    <div class="book-item" data-subject="Bioinformatics" data-subject-short="Bioinformatics"><img src="https://placehold.co/300x400/8383a3/FFFFFF?text=Bioinformatics" alt="Book Cover"><h4>Bioinformatics</h4></div>
+                    <div class="book-item" data-subject="Computer Basics" data-subject-short="Computer Basics"><img src="https://placehold.co/300x400/a3a383/FFFFFF?text=Computer+Basics" alt="Book Cover"><h4>Computer Basics</h4></div>
+                    <div class="book-item" data-subject="Biochemistry" data-subject-short="Biochemistry"><img src="https://placehold.co/300x400/a39a83/FFFFFF?text=Biochemistry" alt="Book Cover"><h4>Biochemistry</h4></div>
+                    <div class="book-item" data-subject="Microbiology" data-subject-short="Microbiology"><img src="https://placehold.co/300x400/83a39a/FFFFFF?text=Microbiology" alt="Book Cover"><h4>Microbiology</h4></div>
+                </div>
+            </div>
+            <div class="catalog-subsection">
+                <h3 class="subsection-title">Browse by Subject</h3>
+                 <ul class="subject-list">
+                    <li><a href="#">Molecular Biology</a></li>
+                    <li><a href="#">Genetics</a></li>
+                    <li><a href="#">Computational Biology</a></li>
+                    <li><a href="#">Biochemistry</a></li>
+                    <li><a href="#">Structural Biology</a></li>
+                    <li><a href="#">Genomics & Proteomics</a></li>
+                    <li><a href="#">Data Science</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Author Modal -->
+    <div id="author-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 max-w-lg w-full">
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+                <h3 id="modal-title" class="text-xl md:text-2xl font-bold text-[#500000]">Authors</h3>
+                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
+            </div>
+            <div id="modal-content" class="text-gray-700">
+                <ul id="author-list" class="list-disc pl-5 space-y-2">
+                    <!-- Author names will be injected here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data for authors by subject
+            const authorsBySubject = {
+                'Molecular Biology': ['H. Lodish', 'Bruce Alberts', 'James D. Watson', 'David Baltimore'],
+                'Genetics': ['D.S. Falconer', 'Anthony J.F. Griffiths', 'Benjamin A. Pierce', 'Robert J. Brooker'],
+                'Bioinformatics': ['P. Compeau & P. Pevzner', 'Arthur M. Lesk', 'David W. Mount', 'Jin Xiong'],
+                'Computer Basics': ['Peter Norton', 'V. Rajaraman', 'Anita Goel', 'E. Balagurusamy'],
+                'Biochemistry': ['D. L. Nelson', 'J. M. Berg', 'Voet & Voet', 'Lubert Stryer'],
+                'Microbiology': ['Michael T. Madigan', 'Gerard J. Tortora', 'Lansing M. Prescott', 'Jacquelyn G. Black']
+            };
+
+            // Modal elements
+            const modal = document.getElementById('author-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const modalTitle = document.getElementById('modal-title');
+            const authorList = document.getElementById('author-list');
+
+            // Book items
+            const bookItems = document.querySelectorAll('.book-item');
+
+            bookItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const subject = item.dataset.subject;
+                    const authors = authorsBySubject[subject];
+
+                    if (subject && authors) {
+                        // Populate and show the modal
+                        modalTitle.textContent = `Key Authors in ${subject}`;
+                        authorList.innerHTML = authors.map(author => `<li>${author}</li>`).join('');
+                        modal.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // Function to close the modal
+            const closeModal = () => {
+                modal.classList.add('hidden');
+            };
+
+            // Event listeners for closing the modal
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                // Close if the outer overlay is clicked
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
