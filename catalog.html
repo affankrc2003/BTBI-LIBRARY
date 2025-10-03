@@ -20,12 +20,12 @@
         .catalog-subsection { margin-bottom: 40px; }
         .subsection-title { font-size: 1.8em; color: #500000; margin-bottom: 20px; border-bottom: 2px solid #f0e6e6; padding-bottom: 10px; }
         .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
-        .book-item { text-align: center; cursor: pointer; } /* Added cursor pointer */
+        .book-item { text-align: center; cursor: pointer; }
         .book-item img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
         .book-item img:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
-        .book-item h4 { margin: 10px 0 5px; font-size: 1.1em; color: #333; } /* Adjusted font size */
+        .book-item h4 { margin: 10px 0 5px; font-size: 1.1em; color: #333; }
         .subject-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 15px; }
-        .subject-list li a { display: block; padding: 10px 20px; background-color: #f0e6e6; color: #800000; text-decoration: none; border-radius: 20px; transition: background-color 0.3s, color 0.3s; }
+        .subject-list li a { display: block; padding: 10px 20px; background-color: #f0e6e6; color: #800000; text-decoration: none; border-radius: 20px; transition: background-color 0.3s, color 0.3s; cursor: pointer; }
         .subject-list li a:hover { background-color: #800000; color: white; }
         .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
     </style>
@@ -70,24 +70,42 @@
             <div class="catalog-subsection">
                 <h3 class="subsection-title">New Arrivals by Subject</h3>
                 <div class="book-grid">
-                    <div class="book-item" data-subject="Molecular Biology" data-subject-short="Mol bio"><img src="https://placehold.co/300x400/a38383/FFFFFF?text=Molecular+Biology" alt="Book Cover"><h4>Mol bio</h4></div>
-                    <div class="book-item" data-subject="Genetics" data-subject-short="Genetics"><img src="https://placehold.co/300x400/83a383/FFFFFF?text=Genetics" alt="Book Cover"><h4>Genetics</h4></div>
-                    <div class="book-item" data-subject="Bioinformatics" data-subject-short="Bioinformatics"><img src="https://placehold.co/300x400/8383a3/FFFFFF?text=Bioinformatics" alt="Book Cover"><h4>Bioinformatics</h4></div>
-                    <div class="book-item" data-subject="Computer Basics" data-subject-short="Computer Basics"><img src="https://placehold.co/300x400/a3a383/FFFFFF?text=Computer+Basics" alt="Book Cover"><h4>Computer Basics</h4></div>
-                    <div class="book-item" data-subject="Biochemistry" data-subject-short="Biochemistry"><img src="https://placehold.co/300x400/a39a83/FFFFFF?text=Biochemistry" alt="Book Cover"><h4>Biochemistry</h4></div>
-                    <div class="book-item" data-subject="Microbiology" data-subject-short="Microbiology"><img src="https://placehold.co/300x400/83a39a/FFFFFF?text=Microbiology" alt="Book Cover"><h4>Microbiology</h4></div>
+                    <div class="book-item" data-subject="Cell Biology"><img src="https://placehold.co/300x400/a38383/FFFFFF?text=Cell+Biology" alt="Book Cover"><h4>Cell Biology</h4></div>
+                    <div class="book-item" data-subject="Molecular Biology"><img src="https://placehold.co/300x400/83a383/FFFFFF?text=Molecular+Biology" alt="Book Cover"><h4>Molecular Biology</h4></div>
+                    <div class="book-item" data-subject="Immunology"><img src="https://placehold.co/300x400/8383a3/FFFFFF?text=Immunology" alt="Book Cover"><h4>Immunology</h4></div>
+                    <div class="book-item" data-subject="Biostatistics"><img src="https://placehold.co/300x400/a3a383/FFFFFF?text=Biostatistics" alt="Book Cover"><h4>Biostatistics</h4></div>
+                    <div class="book-item" data-subject="Genetic Engineering"><img src="https://placehold.co/300x400/a39a83/FFFFFF?text=Genetic+Engineering" alt="Book Cover"><h4>Genetic Engineering</h4></div>
+                    <div class="book-item" data-subject="Bioinformatics"><img src="https://placehold.co/300x400/83a39a/FFFFFF?text=Bioinformatics" alt="Book Cover"><h4>Bioinformatics</h4></div>
+                    <div class="book-item" data-subject="Genomics"><img src="https://placehold.co/300x400/9a83a3/FFFFFF?text=Genomics" alt="Book Cover"><h4>Genomics</h4></div>
+                    <div class="book-item" data-subject="Drug Design"><img src="https://placehold.co/300x400/839aa3/FFFFFF?text=Drug+Design" alt="Book Cover"><h4>Drug Design</h4></div>
                 </div>
             </div>
             <div class="catalog-subsection">
                 <h3 class="subsection-title">Browse by Subject</h3>
                  <ul class="subject-list">
-                    <li><a href="#">Molecular Biology</a></li>
-                    <li><a href="#">Genetics</a></li>
-                    <li><a href="#">Computational Biology</a></li>
-                    <li><a href="#">Biochemistry</a></li>
-                    <li><a href="#">Structural Biology</a></li>
-                    <li><a href="#">Genomics & Proteomics</a></li>
-                    <li><a href="#">Data Science</a></li>
+                    <!-- Semester 1 -->
+                    <li><a data-subject="Cell Biology">Cell Biology</a></li>
+                    <li><a data-subject="Biomolecules">Biomolecules</a></li>
+                    <li><a data-subject="Bioenergetics and Metabolism">Bioenergetics & Metabolism</a></li>
+                    <li><a data-subject="Microbiology">Microbiology</a></li>
+                    <li><a data-subject="Computer Basics">Computer Basics</a></li>
+                    <!-- Semester 2 -->
+                    <li><a data-subject="Molecular Biology">Molecular Biology</a></li>
+                    <li><a data-subject="Immunology">Immunology</a></li>
+                    <li><a data-subject="Enzymology">Enzymology</a></li>
+                    <li><a data-subject="Biostatistics">Biostatistics</a></li>
+                    <li><a data-subject="Techniques in Biology">Techniques in Biology</a></li>
+                     <!-- Semester 3 -->
+                    <li><a data-subject="Genetic Engineering">Genetic Engineering</a></li>
+                    <li><a data-subject="Bioinformatics">Bioinformatics</a></li>
+                    <li><a data-subject="Bioprocess Engineering">Bioprocess Engineering</a></li>
+                    <li><a data-subject="Plant Biotechnology">Plant Biotechnology</a></li>
+                     <!-- Semester 4 -->
+                    <li><a data-subject="Animal Biotechnology">Animal Biotechnology</a></li>
+                    <li><a data-subject="Environmental Biotechnology">Environmental Biotechnology</a></li>
+                    <li><a data-subject="Genomics">Genomics</a></li>
+                    <li><a data-subject="Proteomics">Proteomics</a></li>
+                    <li><a data-subject="Drug Design">Drug Design</a></li>
                 </ul>
             </div>
         </section>
@@ -114,14 +132,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Data for authors by subject
+            // Data for authors by subject, based on Sambalpur University Syllabus.
+            // **IMPORTANT**: Replace '#' with the actual URL to your PDF file.
             const authorsBySubject = {
-                'Molecular Biology': ['H. Lodish', 'Bruce Alberts', 'James D. Watson', 'David Baltimore'],
-                'Genetics': ['D.S. Falconer', 'Anthony J.F. Griffiths', 'Benjamin A. Pierce', 'Robert J. Brooker'],
-                'Bioinformatics': ['P. Compeau & P. Pevzner', 'Arthur M. Lesk', 'David W. Mount', 'Jin Xiong'],
-                'Computer Basics': ['Peter Norton', 'V. Rajaraman', 'Anita Goel', 'E. Balagurusamy'],
-                'Biochemistry': ['D. L. Nelson', 'J. M. Berg', 'Voet & Voet', 'Lubert Stryer'],
-                'Microbiology': ['Michael T. Madigan', 'Gerard J. Tortora', 'Lansing M. Prescott', 'Jacquelyn G. Black']
+                // Semester 1
+                'Cell Biology': [ { name: 'Gerald Karp', pdfUrl: '#' }, { name: 'Bruce Alberts', pdfUrl: '#' } ],
+                'Biomolecules': [ { name: 'J. L. Jain', pdfUrl: '#' }, { name: 'Lehninger', pdfUrl: '#' } ],
+                'Bioenergetics and Metabolism': [ { name: 'Voet & Voet', pdfUrl: '#' }, { name: 'Lubert Stryer', pdfUrl: '#' } ],
+                'Microbiology': [ { name: 'Michael T. Madigan', pdfUrl: '#' }, { name: 'Lansing M. Prescott', pdfUrl: '#' } ],
+                'Computer Basics': [ { name: 'Peter Norton', pdfUrl: '#' }, { name: 'V. Rajaraman', pdfUrl: '#' } ],
+                // Semester 2
+                'Molecular Biology': [ { name: 'H. Lodish', pdfUrl: '#' }, { name: 'James D. Watson', pdfUrl: '#' } ],
+                'Immunology': [ { name: 'Abul K. Abbas', pdfUrl: '#' }, { name: 'Janis Kuby', pdfUrl: '#' } ],
+                'Enzymology': [ { name: 'Trevor Palmer', pdfUrl: '#' }, { name: 'Dixon and Webb', pdfUrl: '#' } ],
+                'Biostatistics': [ { name: 'Marcello Pagano', pdfUrl: '#' }, { name: 'Wayne W. Daniel', pdfUrl: '#' } ],
+                'Techniques in Biology': [ { name: 'Keith Wilson & John Walker', pdfUrl: '#' } ],
+                // Semester 3
+                'Genetic Engineering': [ { name: 'T. A. Brown', pdfUrl: '#' }, { name: 'Sandy B. Primrose', pdfUrl: '#' } ],
+                'Bioinformatics': [ { name: 'David W. Mount', pdfUrl: '#' }, { name: 'Arthur M. Lesk', pdfUrl: '#' } ],
+                'Bioprocess Engineering': [ { name: 'Pauline M. Doran', pdfUrl: '#' }, { name: 'Michael L. Shuler', pdfUrl: '#' } ],
+                'Plant Biotechnology': [ { name: 'H. S. Chawla', pdfUrl: '#' }, { name: 'Adrian Slater', pdfUrl: '#' } ],
+                // Semester 4
+                'Animal Biotechnology': [ { name: 'R. Ian Freshney', pdfUrl: '#' }, { name: 'M. M. Ranga', pdfUrl: '#' } ],
+                'Environmental Biotechnology': [ { name: 'Bruce E. Rittmann', pdfUrl: '#' }, { name: 'G. M. Evans', pdfUrl: '#' } ],
+                'Genomics': [ { name: 'S. B. Primrose', pdfUrl: '#' }, { name: 'T. A. Brown', pdfUrl: '#' } ],
+                'Proteomics': [ { name: 'Richard M. Twyman', pdfUrl: '#' }, { name: 'Daniel C. Liebler', pdfUrl: '#' } ],
+                'Drug Design': [ { name: 'Andrew R. Leach', pdfUrl: '#' }, { name: 'Klaus Wermuth', pdfUrl: '#' } ]
             };
 
             // Modal elements
@@ -130,32 +166,31 @@
             const modalTitle = document.getElementById('modal-title');
             const authorList = document.getElementById('author-list');
 
-            // Book items
-            const bookItems = document.querySelectorAll('.book-item');
+            const openAuthorModal = (subject) => {
+                const authors = authorsBySubject[subject];
+                if (subject && authors) {
+                    modalTitle.textContent = `Key Authors in ${subject}`;
+                    authorList.innerHTML = authors.map(author => 
+                        `<li><a href="${author.pdfUrl}" target="_blank" class="text-blue-700 hover:underline">${author.name}</a></li>`
+                    ).join('');
+                    modal.classList.remove('hidden');
+                }
+            };
 
-            bookItems.forEach(item => {
-                item.addEventListener('click', () => {
+            document.querySelectorAll('.book-item, .subject-list a').forEach(item => {
+                item.addEventListener('click', (event) => {
+                    event.preventDefault();
                     const subject = item.dataset.subject;
-                    const authors = authorsBySubject[subject];
-
-                    if (subject && authors) {
-                        // Populate and show the modal
-                        modalTitle.textContent = `Key Authors in ${subject}`;
-                        authorList.innerHTML = authors.map(author => `<li>${author}</li>`).join('');
-                        modal.classList.remove('hidden');
-                    }
+                    openAuthorModal(subject);
                 });
             });
 
-            // Function to close the modal
             const closeModal = () => {
                 modal.classList.add('hidden');
             };
 
-            // Event listeners for closing the modal
             closeModalBtn.addEventListener('click', closeModal);
             modal.addEventListener('click', (event) => {
-                // Close if the outer overlay is clicked
                 if (event.target === modal) {
                     closeModal();
                 }
@@ -164,4 +199,5 @@
     </script>
 </body>
 </html>
+
 
