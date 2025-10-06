@@ -15,19 +15,53 @@
         .navbar a:hover { background-color: #ddd; color: black; }
         .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .section-title { text-align: center; font-size: 2.2em; color: #800000; margin-bottom: 30px; }
-        .filter-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 40px; padding: 20px; background-color: #f9f9f9; border-radius: 8px; }
-        .filter-bar select, .filter-bar input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-family: inherit; font-size: 1em; }
         .catalog-subsection { margin-bottom: 40px; }
         .subsection-title { font-size: 1.8em; color: #500000; margin-bottom: 20px; border-bottom: 2px solid #f0e6e6; padding-bottom: 10px; }
-        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 25px; }
-        .book-item { text-align: center; cursor: pointer; }
-        .book-item img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
-        .book-item img:hover { transform: translateY(-5px); box-shadow: 0 8px 12px rgba(0,0,0,0.15); }
-        .book-item h4 { margin: 10px 0 5px; font-size: 1.1em; color: #333; }
-        .subject-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 15px; }
-        .subject-list li a { display: block; padding: 10px 20px; background-color: #f0e6e6; color: #800000; text-decoration: none; border-radius: 20px; transition: background-color 0.3s, color 0.3s; cursor: pointer; }
-        .subject-list li a:hover { background-color: #800000; color: white; }
         .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
+
+        /* Accordion styles for subject list */
+        .accordion-item input[type="checkbox"] {
+            display: none;
+        }
+        .accordion-item label {
+            display: block;
+            padding: 16px 25px;
+            background-color: #f0e6e6;
+            color: #800000;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        .accordion-item label:hover {
+            background-color: #e0d8d8;
+        }
+        .author-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            background-color: #fafafa;
+            border-radius: 0 0 8px 8px;
+            padding: 0 20px;
+        }
+        .accordion-item input[type="checkbox"]:checked ~ .author-content {
+            max-height: 500px;
+            padding: 15px 20px;
+            border: 1px solid #f0e6e6;
+            border-top: none;
+        }
+        .author-content ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+        .author-content li a {
+            color: #0000EE;
+            text-decoration: underline;
+        }
+        .author-content li a:hover {
+            color: #551A8B;
+        }
     </style>
 </head>
 <body>
@@ -47,157 +81,161 @@
     </nav>
     <div class="container">
         <section id="catalog">
-            <h2 class="section-title">Library Catalog</h2>
-            <div class="filter-bar">
-                <input type="text" placeholder="Title...">
-                <input type="text" placeholder="Author...">
-                <select>
-                    <option value="">All Types</option>
-                    <option value="book">Book</option>
-                    <option value="ebook">E-Book</option>
-                    <option value="journal">Journal Article</option>
-                    <option value="thesis">Thesis</option>
-                </select>
-                <select>
-                    <option value="">All Subjects</option>
-                    <option value="mol-bio">Molecular Biology</option>
-                    <option value="genetics">Genetics</option>
-                    <option value="bioinfo">Bioinformatics</option>
-                    <option value="biochem">Biochemistry</option>
-                </select>
-                 <button type="button" class="bg-[#800000] text-white px-4 py-2 rounded-md">Filter</button>
-            </div>
+            <h2 class="section-title">Library Catalog (Biotechnology & Bioinformatics)</h2>
+
+            <!-- First Semester -->
             <div class="catalog-subsection">
-                <h3 class="subsection-title">New Arrivals by Subject</h3>
-                <div class="book-grid">
-                    <div class="book-item" data-subject="Cell Biology"><img src="https://placehold.co/300x400/a38383/FFFFFF?text=Cell+Biology" alt="Book Cover"><h4>Cell Biology</h4></div>
-                    <div class="book-item" data-subject="Molecular Biology"><img src="https://placehold.co/300x400/83a383/FFFFFF?text=Molecular+Biology" alt="Book Cover"><h4>Molecular Biology</h4></div>
-                    <div class="book-item" data-subject="Immunology"><img src="https://placehold.co/300x400/8383a3/FFFFFF?text=Immunology" alt="Book Cover"><h4>Immunology</h4></div>
-                    <div class="book-item" data-subject="Biostatistics"><img src="https://placehold.co/300x400/a3a383/FFFFFF?text=Biostatistics" alt="Book Cover"><h4>Biostatistics</h4></div>
-                    <div class="book-item" data-subject="Genetic Engineering"><img src="https://placehold.co/300x400/a39a83/FFFFFF?text=Genetic+Engineering" alt="Book Cover"><h4>Genetic Engineering</h4></div>
-                    <div class="book-item" data-subject="Bioinformatics"><img src="https://placehold.co/300x400/83a39a/FFFFFF?text=Bioinformatics" alt="Book Cover"><h4>Bioinformatics</h4></div>
-                    <div class="book-item" data-subject="Genomics"><img src="https://placehold.co/300x400/9a83a3/FFFFFF?text=Genomics" alt="Book Cover"><h4>Genomics</h4></div>
-                    <div class="book-item" data-subject="Drug Design"><img src="https://placehold.co/300x400/839aa3/FFFFFF?text=Drug+Design" alt="Book Cover"><h4>Drug Design</h4></div>
+                <h3 class="subsection-title">First Semester</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj1"><label for="sem1_subj1">Chemistry of Biomolecules</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/764032d2852a0960e20636806dda98dd" target="_blank">D. M. Vasudevan</a></li><li><a href="https://welib.org/md5/764032d2852a0960e20636806dda98dd" target="_blank">Lehninger</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj2"><label for="sem1_subj2">Genetics and Biostatistics</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/2ff071febe24a746e18d6f7119bc7989" target="_blank">Pearson (Genetics)</a></li><li><a href="https://shorturl.at/Leey4" target="_blank">Bernard  Rosner (Biostatistics)</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj3"><label for="sem1_subj3">Computer Fundamentals</label>
+                        <div class="author-content"><ul><li><a href="https://mycsvtunotes.weebly.com/uploads/1/0/1/7/10174835/computer_fundamental_complete-i.pdf" target="_blank">Pradeep K. Sinha</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj4"><label for="sem1_subj4">Molecular Biology - I</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/4df4f7fa5dbf2c4cc297e36e9631d682" target="_blank">PK Gupta</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj5"><label for="sem1_subj5">Environmental Studies and Disaster Management</label>
+                        <div class="author-content"><ul><li><a href="https://www.ugc.ac.in/oldpdf/modelcurriculum/env.pdf" target="_blank">UGC Module (Environmental Studies)</a></li><li><a href="https://health.odisha.gov.in/sites/default/files/2020-02/Disaster_Management.pdf" target="_blank">Odisha Govt (Disaster Management)</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj6"><label for="sem1_subj6">Bioinformatics</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/5ddd6b00b015ec9b51f876dac3e8118c" target="_blank">Arthur M.Lesk</a></li><li><a href="https://welib.org/md5/e9c93a124d51890ec24ca16235be152b" target="_blank">Orpita,Bosu,Oxford University Press</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem1_subj7"><label for="sem1_subj7">Microbiology</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/69ec021072d8ab2f8cd1333fea24b505" target="_blank">Prescott</a></li></ul></div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Second Semester -->
             <div class="catalog-subsection">
-                <h3 class="subsection-title">Browse by Subject</h3>
-                 <ul class="subject-list">
-                    <!-- Semester 1 -->
-                    <li><a data-subject="Cell Biology">Cell Biology</a></li>
-                    <li><a data-subject="Biomolecules">Biomolecules</a></li>
-                    <li><a data-subject="Bioenergetics and Metabolism">Bioenergetics & Metabolism</a></li>
-                    <li><a data-subject="Microbiology">Microbiology</a></li>
-                    <li><a data-subject="Computer Basics">Computer Basics</a></li>
-                    <!-- Semester 2 -->
-                    <li><a data-subject="Molecular Biology">Molecular Biology</a></li>
-                    <li><a data-subject="Immunology">Immunology</a></li>
-                    <li><a data-subject="Enzymology">Enzymology</a></li>
-                    <li><a data-subject="Biostatistics">Biostatistics</a></li>
-                    <li><a data-subject="Techniques in Biology">Techniques in Biology</a></li>
-                     <!-- Semester 3 -->
-                    <li><a data-subject="Genetic Engineering">Genetic Engineering</a></li>
-                    <li><a data-subject="Bioinformatics">Bioinformatics</a></li>
-                    <li><a data-subject="Bioprocess Engineering">Bioprocess Engineering</a></li>
-                    <li><a data-subject="Plant Biotechnology">Plant Biotechnology</a></li>
-                     <!-- Semester 4 -->
-                    <li><a data-subject="Animal Biotechnology">Animal Biotechnology</a></li>
-                    <li><a data-subject="Environmental Biotechnology">Environmental Biotechnology</a></li>
-                    <li><a data-subject="Genomics">Genomics</a></li>
-                    <li><a data-subject="Proteomics">Proteomics</a></li>
-                    <li><a data-subject="Drug Design">Drug Design</a></li>
-                </ul>
+                <h3 class="subsection-title">Second Semester</h3>
+                <div class="accordion">
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj1"><label for="sem2_subj1">Molecular Biology - II</label>
+                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/molecular-biology-of-the-gene-e187895123.html" target="_blank">James D. Watson</a></li><li><a href="https://iastate.pressbooks.pub/molecularbiogene/" target="_blank">Open Educational Resource</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj2"><label for="sem2_subj2">Bioenergetics and Metabolism</label>
+                        <div class="author-content"><ul><li><a href="https://www.academia.edu/43922731/Lehninger_Principles_of_Biochemistry" target="_blank">Lehninger</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj4"><label for="sem2_subj4">Operating System and Basic Programming</label>
+                        <div class="author-content"><ul><li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Arpaci-Dusseau (OS)</a></li><li><a href="https://www.ibiblio.org/g2swap/byteofpython/read/" target="_blank">Swaroop C H (Python)</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj5"><label for="sem2_subj5">Python Programming</label>
+                        <div class="author-content"><ul><li><a href="https://automatetheboringstuff.com/2e/chapter0/" target="_blank">Al Sweigart</a></li><li><a href="https://greenteapress.com/wp/think-python-2e/" target="_blank">Allen B. Downey</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj6"><label for="sem2_subj6">Instrumentation Techniques</label>
+                        <div class="author-content"><ul><li><a href="https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Book%3A_Instrumental_Analysis_(LibreTexts)" target="_blank">Chem LibreTexts</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem2_subj7"><label for="sem2_subj7">Industrial Microbiology</label>
+                        <div class="author-content"><ul><li><a href="https://archive.org/details/prescottsmicrobi0000unse" target="_blank">Prescott's Microbiology (Relevant Chapters)</a></li></ul></div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Third Semester -->
+             <div class="catalog-subsection">
+                <h3 class="subsection-title">Third Semester</h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj1"><label for="sem3_subj1">Recombinant DNA Technology, IPRs and Bioethics</label>
+                        <div class="author-content"><ul><li><a href="http://library.umac.mo/ebooks/b2805063x.pdf" target="_blank">T. A. Brown (Gene Cloning)</a></li><li><a href="https://www.wipo.int/edocs/pubdocs/en/wipo_pub_450_2020.pdf" target="_blank">WIPO (Understanding IPR)</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj2"><label for="sem3_subj2">Computer Aided Drug Design</label>
+                        <div class="author-content"><ul><li><a href="https://cdn.intechopen.com/pdfs/35730/InTech-Computational_drug_design_a_guide_for_computational_and_medicinal_chemists.pdf" target="_blank">IntechOpen Chapter</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj3"><label for="sem3_subj3">Database Management System</label>
+                        <div class="author-content"><ul><li><a href="https://www.databasteknik.se/db-2019/db-2019-vt/Course-literature-DB-book-3rd-edition.pdf" target="_blank">Ramakrishnan & Gehrke</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj4"><label for="sem3_subj4">Computational Biology</label>
+                        <div class="author-content"><ul><li><a href="https://www.cs.cmu.edu/~compbio/Homeworks/extra/cb-notes.pdf" target="_blank">Carnegie Mellon University Notes</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj5"><label for="sem3_subj5">Microbiology and Immunology</label>
+                        <div class="author-content"><ul><li><a href="https://archive.org/details/kubyimmunology" target="_blank">Janis Kuby (Immunology)</a></li><li><a href="https://openstax.org/details/books/microbiology" target="_blank">OpenStax (Microbiology)</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj6"><label for="sem3_subj6">Entrepreneurship Development</label>
+                        <div class="author-content"><ul><li><a href="https://www.ediindia.org/wp-content/uploads/2022/01/Fundamentals-of-Entrepreneurship-and-Project-Management-Final.pdf" target="_blank">EDII India</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj7"><label for="sem3_subj7">How to Give a Seminar</label>
+                        <div class="author-content"><ul><li><a href="https://cgi.cse.unsw.edu.au/~cs9315/15s1/lectures/seminar-howto.pdf" target="_blank">UNSW Guide</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj8"><label for="sem3_subj8">Plant and Animal Biotechnology</label>
+                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/plant-biotechnology-and-genetics-principles-techniques-and-applications-e158223963.html" target="_blank">Slater (Plant)</a></li><li><a href="https://www.pdfdrive.com/animal-biotechnology-e18712304.html" target="_blank">M. M. Ranga (Animal)</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem3_subj9"><label for="sem3_subj9">Cell Culture and Developmental Biology</label>
+                        <div class="author-content"><ul><li><a href="https://archive.org/details/freshneycultureofanimalcells" target="_blank">R. Ian Freshney (Cell Culture)</a></li><li><a href="https://www.ncbi.nlm.nih.gov/books/NBK9963/" target="_blank">Scott F. Gilbert (Developmental Bio)</a></li></ul></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fourth Semester -->
+            <div class="catalog-subsection">
+                <h3 class="subsection-title">Fourth Semester</h3>
+                <div class="accordion">
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj1"><label for="sem4_subj1">Genomics, Proteomics and Metabolomics</label>
+                        <div class="author-content"><ul><li><a href="https://ocw.mit.edu/courses/7-341-genomics-and-evolution-fall-2018/resources/mit7_341f18_lec1/" target="_blank">MIT OpenCourseWare (Genomics)</a></li><li><a href="https://www.ncbi.nlm.nih.gov/books/NBK21226/" target="_blank">NCBI Bookshelf (Proteomics)</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj2"><label for="sem4_subj2">AI and ML in Bioinformatics</label>
+                        <div class="author-content"><ul><li><a href="https://www.cs.princeton.edu/courses/archive/spring19/cos324/files/machine-learning-and-bioinformatics.pdf" target="_blank">Princeton CS Lecture</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj3"><label for="sem4_subj3">Big Data Analysis</label>
+                        <div class="author-content"><ul><li><a href="http://www.mmds.org/" target="_blank">Leskovec, Rajaraman & Ullman</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj4"><label for="sem4_subj4">NGS Data Analysis</label>
+                        <div class="author-content"><ul><li><a href="https://hbc.github.io/Bioinformatics_data_analysis/" target="_blank">Harvard Bioinformatics Core</a></li></ul></div>
+                    </div>
+                     <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj5"><label for="sem4_subj5">Bioprocess Engineering</label>
+                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/bioprocess-engineering-principles-e29881181.html" target="_blank">Pauline M. Doran</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj6"><label for="sem4_subj6">Agricultural Biotechnology</label>
+                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/an-introduction-to-agricultural-biotechnology-e158288599.html" target="_blank">H.S. Chawla</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj7"><label for="sem4_subj7">Environmental Biotechnology</label>
+                        <div class="author-content"><ul><li><a href="https://welib.org/md5/83a80fd079c7a95a28df4f3656a036c9" target="_blank">Bruce E. Rittmann</a></li></ul></div>
+                    </div>
+                    <div class="accordion-item">
+                        <input type="checkbox" id="sem4_subj8"><label for="sem4_subj8">Pharmaceutical Biotechnology</label>
+                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/pharmaceutical-biotechnology-fundamentals-and-applications-e19525281.html" target="_blank">Daan J.A. Crommelin</a></li></ul></div>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </div>
-
-    <!-- Author Modal -->
-    <div id="author-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl p-6 md:p-8 max-w-lg w-full">
-            <div class="flex justify-between items-center mb-4 border-b pb-3">
-                <h3 id="modal-title" class="text-xl md:text-2xl font-bold text-[#500000]">Authors</h3>
-                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800 text-3xl font-bold">&times;</button>
-            </div>
-            <div id="modal-content" class="text-gray-700">
-                <ul id="author-list" class="list-disc pl-5 space-y-2">
-                    <!-- Author names will be injected here -->
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <footer class="footer">
         <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Data for authors by subject, based on Sambalpur University Syllabus.
-            // **IMPORTANT**: Replace '#' with the actual URL to your PDF file.
-            const authorsBySubject = {
-                // Semester 1
-                'Cell Biology': [ { name: 'Gerald Karp', pdfUrl: '#' }, { name: 'Bruce Alberts', pdfUrl: '#' } ],
-                'Biomolecules': [ { name: 'J. L. Jain', pdfUrl: '#' }, { name: 'Lehninger', pdfUrl: '#' } ],
-                'Bioenergetics and Metabolism': [ { name: 'Voet & Voet', pdfUrl: '#' }, { name: 'Lubert Stryer', pdfUrl: '#' } ],
-                'Microbiology': [ { name: 'Michael T. Madigan', pdfUrl: '#' }, { name: 'Lansing M. Prescott', pdfUrl: '#' } ],
-                'Computer Basics': [ { name: 'Peter Norton', pdfUrl: '#' }, { name: 'V. Rajaraman', pdfUrl: '#' } ],
-                // Semester 2
-                'Molecular Biology': [ { name: 'H. Lodish', pdfUrl: '#' }, { name: 'James D. Watson', pdfUrl: '#' } ],
-                'Immunology': [ { name: 'Abul K. Abbas', pdfUrl: '#' }, { name: 'Janis Kuby', pdfUrl: '#' } ],
-                'Enzymology': [ { name: 'Trevor Palmer', pdfUrl: '#' }, { name: 'Dixon and Webb', pdfUrl: '#' } ],
-                'Biostatistics': [ { name: 'Marcello Pagano', pdfUrl: '#' }, { name: 'Wayne W. Daniel', pdfUrl: '#' } ],
-                'Techniques in Biology': [ { name: 'Keith Wilson & John Walker', pdfUrl: '#' } ],
-                // Semester 3
-                'Genetic Engineering': [ { name: 'T. A. Brown', pdfUrl: '#' }, { name: 'Sandy B. Primrose', pdfUrl: '#' } ],
-                'Bioinformatics': [ { name: 'David W. Mount', pdfUrl: '#' }, { name: 'Arthur M. Lesk', pdfUrl: '#' } ],
-                'Bioprocess Engineering': [ { name: 'Pauline M. Doran', pdfUrl: '#' }, { name: 'Michael L. Shuler', pdfUrl: '#' } ],
-                'Plant Biotechnology': [ { name: 'H. S. Chawla', pdfUrl: '#' }, { name: 'Adrian Slater', pdfUrl: '#' } ],
-                // Semester 4
-                'Animal Biotechnology': [ { name: 'R. Ian Freshney', pdfUrl: '#' }, { name: 'M. M. Ranga', pdfUrl: '#' } ],
-                'Environmental Biotechnology': [ { name: 'Bruce E. Rittmann', pdfUrl: '#' }, { name: 'G. M. Evans', pdfUrl: '#' } ],
-                'Genomics': [ { name: 'S. B. Primrose', pdfUrl: '#' }, { name: 'T. A. Brown', pdfUrl: '#' } ],
-                'Proteomics': [ { name: 'Richard M. Twyman', pdfUrl: '#' }, { name: 'Daniel C. Liebler', pdfUrl: '#' } ],
-                'Drug Design': [ { name: 'Andrew R. Leach', pdfUrl: '#' }, { name: 'Klaus Wermuth', pdfUrl: '#' } ]
-            };
-
-            // Modal elements
-            const modal = document.getElementById('author-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const modalTitle = document.getElementById('modal-title');
-            const authorList = document.getElementById('author-list');
-
-            const openAuthorModal = (subject) => {
-                const authors = authorsBySubject[subject];
-                if (subject && authors) {
-                    modalTitle.textContent = `Key Authors in ${subject}`;
-                    authorList.innerHTML = authors.map(author => 
-                        `<li><a href="${author.pdfUrl}" target="_blank" class="text-blue-700 hover:underline">${author.name}</a></li>`
-                    ).join('');
-                    modal.classList.remove('hidden');
-                }
-            };
-
-            document.querySelectorAll('.book-item, .subject-list a').forEach(item => {
-                item.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const subject = item.dataset.subject;
-                    openAuthorModal(subject);
-                });
-            });
-
-            const closeModal = () => {
-                modal.classList.add('hidden');
-            };
-
-            closeModalBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
-
 
