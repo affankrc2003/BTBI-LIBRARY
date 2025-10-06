@@ -3,148 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sambalpur University | Dept. of BT & BI Library</title>
+    <title>Sambalpur University Library</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Added Marked.js for better response formatting -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* General Body Styles */
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            margin: 0;
-            padding: 0;
+        body { 
+            font-family: 'Times New Roman', Times, serif; 
+            background-color: #f4f4f4; 
             color: #333;
-            background-color: #f4f4f4; /* Fallback color */
-            
-            /* Background Image Placeholder */
-            /* background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('path/to/your/image.jpg'); */
+            /* Add this line to reference your background image */
+            /* background-image: url('YOUR_IMAGE_LINK_HERE'); */
             background-size: cover;
+            background-position: center;
             background-attachment: fixed;
         }
-
-        /* Header Styles */
-        .header {
-            background-color: #800000;
-            color: white;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .header { 
+            background-color: #800000; 
+            color: white; 
+            padding: 20px 40px; 
+            display: flex; 
+            align-items: center; 
+            gap: 20px;
+        }
+        .logo {
+            height: 80px;
+            width: auto;
         }
         .header .logo-title h1 { margin: 0; font-size: 2em; font-weight: normal; }
         .header .logo-title p { margin: 5px 0 0; font-size: 1em; }
-
-        /* Navigation Bar */
-        .navbar {
-            display: flex;
-            background-color: #333;
-            overflow: hidden;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .navbar { 
+            display: flex; 
+            background-color: #333; /* Fallback color */
+            /* Subtle Sambalpuri-inspired geometric pattern */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgMEwyMCAxMEwxMCAyMEwwIDEwWiIgZmlsbD0iIzQwNDA0MCI+PC9wYXRoPjwvc3ZnPg==');
+            overflow: hidden; 
+            position: sticky; 
+            top: 0; 
+            z-index: 10; 
         }
         .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 17px; transition: background-color 0.3s, color 0.3s; }
         .navbar a:hover { background-color: #ddd; color: black; }
-        
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .hero-section {
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        /* Hero Section */
-        .hero {
             text-align: center;
             padding: 60px 20px;
-            background-color: #f0e6e6;
-            border-radius: 8px;
-            margin-bottom: 30px;
         }
-        .hero h2 { font-size: 2.5em; margin-bottom: 20px; color: #500000; }
-        .search-container { display: flex; flex-wrap: wrap; justify-content: center; max-width: 800px; margin: 0 auto; gap: 10px; }
-        .search-input-wrapper { display: flex; flex-grow: 1; min-width: 300px; border: 1px solid #ccc; border-radius: 25px; overflow: hidden; }
-        .search-container input[type="text"] { width: 100%; padding: 15px; border: none; outline: none; font-size: 1em; }
-        .search-container button { padding: 15px 20px; background: #800000; color: white; border: none; cursor: pointer; font-size: 1em; transition: background-color 0.3s; }
-        .search-container button.search-btn { border-top-right-radius: 25px; border-bottom-right-radius: 25px; }
-        .search-container button:hover { background: #a00000; }
+        .hero-section h2 { font-size: 2.8em; color: #800000; margin-bottom: 10px; }
+        .hero-section p { font-size: 1.2em; color: #555; margin-bottom: 30px; }
         
-        /* Section Grid Layout for Home Page */
-        .section-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .grid-item {
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #e0e0e0;
+        .search-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 1px solid #ccc;
             border-radius: 8px;
+            padding: 5px 15px;
+            flex-grow: 1;
+            min-width: 300px;
+        }
+        .search-input-wrapper input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .search-button {
+            background-color: #800000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .search-button:hover {
+            background-color: #600000;
+        }
+
+        /* Styles for the results area */
+        #results-container {
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #800000;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            color: #D8000C;
+            background-color: #FFD2D2;
+            border: 1px solid;
+            margin: 10px 0px;
+            padding: 15px 10px 15px 50px;
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            border-radius: 8px;
+        }
+        .result-item {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
         }
-        .grid-item h3 { color: #800000; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 0; }
-        .grid-item ul { list-style: none; padding: 0; }
-        .grid-item ul li { margin-bottom: 10px; }
-        .grid-item ul li a { text-decoration: none; color: #333; transition: color 0.3s; }
-        .grid-item ul li a:hover { color: #800000; text-decoration: underline; }
-
-        /* AI Search Results Styling */
-        #ai-search-results {
-            line-height: 1.6;
+        .result-item h3 {
+            font-size: 1.5em;
+            color: #800000;
+            margin-bottom: 1rem;
         }
-        #result-container h4 {
-            font-size: 1.25em;
-            color: #500000;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
+        .result-item p, .result-item ul, .result-item ol {
+             line-height: 1.6;
         }
-         #result-container ul {
-            list-style-position: inside;
+        .result-item ul, .result-item ol {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
         }
-
-        /* Footer */
+        .result-item li {
+            margin-bottom: 0.5rem;
+        }
+        
         .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
-        .footer p { margin: 0; }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .header { flex-direction: column; text-align: center; padding: 20px; }
+            .header { flex-direction: column; text-align: center; }
+            .logo { height: 60px; }
             .navbar { flex-direction: column; }
-            .navbar a { padding: 15px; }
-            .hero h2 { font-size: 2em; }
-            
-            .search-input-wrapper {
-                width: 100%;
-                min-width: 0; /* Override the desktop min-width */
-            }
-            .search-container {
-                flex-direction: column;
-            }
-             .search-container button.search-btn {
-                border-radius: 25px;
-                margin-top: 10px;
-            }
-             .search-input-wrapper {
-                 border-radius: 25px;
-             }
-             .search-input-wrapper input {
-                 border-radius: 25px;
-             }
+            .hero-section h2 { font-size: 2em; }
+            .search-container { flex-direction: column; }
+            .search-input-wrapper, .search-button { width: 100%; }
         }
+
     </style>
 </head>
 <body>
-
-    <!-- Header Section -->
     <header class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Sambalpur-University-logo.png" alt="Sambalpur University Logo" class="logo">
         <div class="logo-title">
             <h1>Sambalpur University</h1>
             <p>Department of Biotechnology & Bioinformatics Library</p>
         </div>
     </header>
-
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <a href="index.html">Home</a>
         <a href="catalog.html">Catalog</a>
@@ -154,153 +176,86 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <!-- Main Content Area -->
-    <div class="container">
-        <!-- Hero Search Section -->
-        <section class="hero" id="home">
-            <h2>Gateway to Knowledge</h2>
-            <div class="search-container">
-                <div class="search-input-wrapper">
-                    <input type="text" id="searchInput" placeholder="Search for books, articles, and more...">
-                </div>
-                <button type="button" id="search-btn" class="search-btn">Search</button>
+    <div class="container hero-section">
+        <h2>Welcome to the Digital Library</h2>
+        <p>Your comprehensive resource for academic research in Biotechnology and Bioinformatics.</p>
+        
+        <form class="search-container" id="search-form">
+            <div class="search-input-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="search-input" placeholder="Ask about any topic..." required>
             </div>
-        </section>
+            <button type="submit" class="search-button">
+                ✨ Search with AI
+            </button>
+        </form>
 
-        <!-- AI Search Results Container -->
-        <div id="ai-search-results" class="container hidden">
-            <h2 class="text-2xl font-bold text-[#800000] mb-4">Search Results</h2>
-            <div id="loader" class="hidden flex flex-col items-center justify-center space-y-4 my-8">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#800000]"></div>
-                <p class="text-gray-600">Searching academic databases...</p>
-            </div>
-            <div id="result-container" class="text-gray-700"></div>
-        </div>
-
-
-        <!-- Main Content Grid -->
-        <div class="section-grid">
-            <section class="grid-item" id="featured">
-                <h3>Featured Resources</h3>
-                <ul>
-                    <li><a href="#">E-Books Collection</a></li>
-                    <li><a href="#">Digital Thesis Archives</a></li>
-                    <li><a href="#">Research Papers Portal</a></li>
-                    <li><a href="#">Online Learning Courses</a></li>
-                    <li><a href="#">Scopus Database</a></li>
-                </ul>
-            </section>
-            <section class="grid-item" id="quick-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">My Library Account</a></li>
-                    <li><a href="#">Ask a Librarian</a></li>
-                    <li><a href="#">Interlibrary Loan</a></li>
-                    <li><a href="#">Opening Hours</a></li>
-                    <li><a href="#">Reserve a Study Room</a></li>
-                </ul>
-            </section>
-            <section class="grid-item" id="news">
-                <h3>News & Events</h3>
-                <ul>
-                    <li><a href="#">Upcoming Workshop on Academic Writing</a></li>
-                    <li><a href="#">New Digital Archives Now Available</a></li>
-                    <li><a href="#">Extended Hours for Final Exams</a></li>
-                    <li><a href="#">Library System Maintenance Notice</a></li>
-                    <li><a href="#">Guest Lecture on Bioinformatics</a></li>
-                </ul>
-            </section>
-        </div>
+        <!-- Container for AI search results -->
+        <div id="results-container"></div>
     </div>
 
-    <!-- Footer Section -->
     <footer class="footer">
         <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
     </footer>
 
     <script>
-        const searchButton = document.getElementById('search-btn');
-        const searchInput = document.getElementById('searchInput');
-        const loader = document.getElementById('loader');
-        const resultContainer = document.getElementById('result-container');
-        const aiSearchResultsContainer = document.getElementById('ai-search-results');
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const resultsContainer = document.getElementById('results-container');
+        const apiKey = ""; // Canvas will provide this key.
 
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value;
-            if (query.trim() === '') {
-                aiSearchResultsContainer.classList.remove('hidden');
-                resultContainer.innerHTML = '<p class="text-red-500">Please enter a topic in the search bar first.</p>';
-                return;
-            }
-            
-            aiSearchResultsContainer.classList.remove('hidden');
-            resultContainer.innerHTML = '';
-            loader.classList.remove('hidden');
-            callGeminiApi(query);
-        });
+        searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (!query) return;
 
-        async function callGeminiApi(query) {
-            const apiKey = ""; // API key is provided by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-            const systemPrompt = "You are an AI librarian for the Sambalpur University Department of Biotechnology & Bioinformatics. When a user searches for a topic, act as if you are searching a vast academic database. Provide a concise, well-structured summary of the topic, including key concepts, definitions, and relevant areas of study. Format the response using markdown headings, lists, and bold text for clarity. Do not mention that you are an AI. Present the information as a direct result from a library database search.";
-            const userQuery = `Search for: "${query}"`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-            };
+            resultsContainer.innerHTML = '<div class="loader"></div>';
 
             try {
+                const systemPrompt = "You are an expert academic librarian specializing in Biotechnology and Bioinformatics. When a user provides a topic, you must act as a search engine for a vast digital library. Provide a concise, well-structured summary of the topic using markdown for formatting. Include key concepts, relevant sub-topics, and suggest seminal works or important authors if applicable. Your response should be helpful for a university student beginning their research. Do not act as a chatbot; provide a direct, informative response as if you are presenting search results.";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: query }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
-                const result = await response.json();
 
                 if (!response.ok) {
-                    const errorMsg = result.error?.message || `The server responded with an error (status: ${response.status}).`;
-                    throw new Error(errorMsg);
+                    throw new Error(`API error: ${response.status} ${response.statusText}`);
                 }
 
-                const candidate = result.candidates?.[0];
-                
-                if (!candidate) {
-                    const blockReason = result.promptFeedback?.blockReason;
-                    if (blockReason) {
-                        throw new Error(`Your request was blocked for safety reasons: ${blockReason}. Please modify your query.`);
-                    } else {
-                        throw new Error('The response from the AI was empty. This could be due to a content policy violation or a temporary issue.');
-                    }
+                const result = await response.json();
+
+                if (result.promptFeedback && result.promptFeedback.blockReason) {
+                    displayError(`Your query was blocked for safety reasons: ${result.promptFeedback.blockReason}. Please try a different topic.`);
+                    return;
                 }
                 
-                const textContent = candidate.content?.parts?.[0]?.text;
-
-                if (textContent) {
-                    let htmlResult = textContent
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/## (.*)/gm, '<h4 class="font-bold text-lg mt-4 mb-2">$1</h4>')
-                        .replace(/^\* (.*)/gm, '<li class="ml-5 list-disc">$1</li>');
-
-                    if (htmlResult.includes('<li')) {
-                        htmlResult = `<ul>${htmlResult}</ul>`.replace(/<\/li>\n/g, '</li>');
-                    }
-                    resultContainer.innerHTML = htmlResult;
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts[0].text) {
+                    const rawText = result.candidates[0].content.parts[0].text;
+                    // Use marked.js to convert markdown to HTML
+                    const formattedHtml = marked.parse(rawText);
+                    resultsContainer.innerHTML = `<div class="result-item"><h3>Search Results for "${query}"</h3>${formattedHtml}</div>`;
                 } else {
-                   resultContainer.innerHTML = '<p class="text-red-500">No specific information was found for your query.</p>';
+                    displayError("No results found. The AI could not generate a response for this topic. Please try again.");
                 }
+
             } catch (error) {
-                console.error('Error calling Gemini API:', error);
-                if (error.message.includes("API key not valid")) {
-                     resultContainer.innerHTML = `<p class="text-red-500"><strong>Configuration Error:</strong> The API key is not valid. Please contact the site administrator.</p>`;
-                } else {
-                     resultContainer.innerHTML = `<p class="text-red-500"><strong>An error occurred:</strong> ${error.message}</p>`;
-                }
-            } finally {
-                loader.classList.add('hidden');
+                console.error('Error fetching from Gemini API:', error);
+                displayError("An error occurred while fetching results. Please check your connection and try again.");
             }
+        });
+
+        function displayError(message) {
+            resultsContainer.innerHTML = `<div class="error-message">${message}</div>`;
         }
     </script>
 </body>
