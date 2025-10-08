@@ -5,15 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sambalpur University Library</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Added Marked.js for better response formatting -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         body { 
             font-family: 'Times New Roman', Times, serif; 
             background-color: #f4f4f4; 
             color: #333;
-            /* Add this line to reference your background image */
-            /* background-image: url('YOUR_IMAGE_LINK_HERE'); */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -44,106 +40,72 @@
         }
         .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 17px; transition: background-color 0.3s, color 0.3s; }
         .navbar a:hover { background-color: #ddd; color: black; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; }
-        .hero-section {
-            background-color: rgba(255, 255, 255, 0.9);
+        .container { 
+            max-width: 1200px; 
+            margin: 20px auto; 
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .hero-section h2 { font-size: 2.8em; color: #800000; margin-bottom: 10px; }
-        .hero-section p { font-size: 1.2em; color: #555; margin-bottom: 30px; }
-        
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .search-input-wrapper {
-            display: flex;
-            align-items: center;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 5px 15px;
-            flex-grow: 1;
-            min-width: 300px;
-        }
-        .search-input-wrapper input {
-            border: none;
-            outline: none;
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .search-button {
-            background-color: #800000;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        .search-button:hover {
-            background-color: #600000;
         }
 
-        /* Styles for the results area */
-        #results-container {
-            margin-top: 2rem;
-            text-align: left;
+        /* New styles for the image gallery */
+        .image-gallery-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 4px solid #800000;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
+        .image-wrapper {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            text-align: center;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .error-message {
-            color: #D8000C;
-            background-color: #FFD2D2;
-            border: 1px solid;
-            margin: 10px 0px;
-            padding: 15px 10px 15px 50px;
-            background-repeat: no-repeat;
-            background-position: 10px center;
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
         }
-        .result-item {
-            background-color: #fff;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 1rem;
+        .image-caption {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+            font-style: italic;
         }
-        .result-item h3 {
+
+        .content-section {
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 { 
+            font-size: 2.2em; 
+            color: #800000; 
+            margin-bottom: 20px; 
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .content-section h3 {
             font-size: 1.5em;
-            color: #800000;
-            margin-bottom: 1rem;
+            color: #600000;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
-        .result-item p, .result-item ul, .result-item ol {
-             line-height: 1.6;
+        .content-section p, .content-section ul { 
+            font-size: 1.1em; 
+            line-height: 1.7; 
+            text-align: justify;
         }
-        .result-item ul, .result-item ol {
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
+        .content-section ul {
+            list-style: disc;
+            padding-left: 40px;
         }
-        .result-item li {
-            margin-bottom: 0.5rem;
+        .content-section li {
+            margin-bottom: 10px;
         }
         
         .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
@@ -152,16 +114,14 @@
             .header { flex-direction: column; text-align: center; }
             .logo { height: 60px; }
             .navbar { flex-direction: column; }
-            .hero-section h2 { font-size: 2em; }
-            .search-container { flex-direction: column; }
-            .search-input-wrapper, .search-button { width: 100%; }
+            .content-section h2 { font-size: 1.8em; }
         }
 
     </style>
 </head>
 <body>
     <header class="header">
-        <img src="https://raw.githubusercontent.com/affankrc2003/BTBI-LIBRARY/refs/heads/main/images%20logo.jfif" alt="Sambalpur University Logo" class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Sambalpur-University-logo.png" alt="Sambalpur University Logo" class="logo">
         <div class="logo-title">
             <h1>Sambalpur University</h1>
             <p>Department of Biotechnology & Bioinformatics Library</p>
@@ -176,90 +136,59 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <div class="container hero-section">
-        <h2>Welcome to the Digital Library</h2>
-        <p>Your comprehensive resource for academic research in Biotechnology and Bioinformatics.</p>
-        
-        <form class="search-container" id="search-form">
-            <div class="search-input-wrapper">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="search-input" placeholder="Ask about any topic..." required>
+    <div class="container">
+        <!-- Image Gallery Section -->
+        <div class="image-gallery-container">
+            <div class="image-wrapper">
+                <img src="https://placehold.co/600x400/800000/FFFFFF?text=Sambalpur+University" alt="Sambalpur University Campus">
+                <p class="image-caption">The University Campus</p>
             </div>
-            <button type="submit" class="search-button">
-                ✨ Search with AI
-            </button>
-        </form>
+            <div class="image-wrapper">
+                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcoenpt.in%2F&psig=AOvVaw0UNEoFOnIzgJikTQiO9jgl&ust=1760023350228000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKj1gI70lJADFQAAAAAdAAAAABAL" alt="Biotechnology & Bioinformatics Department Lab">
+                <p class="image-caption">Departmental Facilities</p>
+            </div>
+        </div>
 
-        <!-- Container for AI search results -->
-        <div id="results-container"></div>
+        <section class="content-section">
+            <h2>About the Department</h2>
+            <p>
+                The Department of Biotechnology & Bioinformatics at Sambalpur University was established to pioneer education and research in the cutting-edge fields of life sciences. It is dedicated to creating a skilled workforce capable of addressing contemporary challenges in healthcare, agriculture, and the environment through modern biological and computational techniques. The department fosters a vibrant academic environment that encourages innovation, critical thinking, and interdisciplinary collaboration.
+            </p>
+
+            <h3>Vision & Mission</h3>
+            <p>
+                Our vision is to be a center of excellence in Biotechnology and Bioinformatics, recognized for high-quality teaching, impactful research, and producing graduates who are leaders in academia and industry. The mission of the department is to provide comprehensive knowledge, impart advanced practical skills, and cultivate a strong research aptitude among students, preparing them for successful careers and lifelong learning.
+            </p>
+
+            <h3>Programs Offered</h3>
+            <ul>
+                <li><strong>M.Sc. in Biotechnology:</strong> A two-year postgraduate program focusing on core concepts of biotechnology, including genetic engineering, immunology, and bioprocess technology.</li>
+                <li><strong>M.Sc. in Bioinformatics:</strong> A two-year postgraduate program that integrates biology with computer science, covering areas like genomics, proteomics, and computational drug design.</li>
+                <li><strong>Ph.D. Program:</strong> The department offers doctoral research programs in various specialized areas of Biotechnology and Bioinformatics, encouraging original research and scholarly contributions.</li>
+            </ul>
+
+            <h3>Key Facilities</h3>
+            <p>
+                The department is equipped with state-of-the-art laboratories and facilities to support advanced research and practical training. These include:
+            </p>
+            <ul>
+                <li><strong>Molecular Biology & Genetic Engineering Lab:</strong> Equipped with PCR, gel electrophoresis, and other essential tools for molecular studies.</li>
+                <li><strong>Bioinformatics & Computational Biology Lab:</strong> High-performance computing clusters with specialized software for sequence analysis, molecular modeling, and data analysis.</li>
+                <li><strong>Cell Culture Laboratory:</strong> A sterile facility for animal and plant cell culture experiments.</li>
+                <li><strong>Departmental Library:</strong> A dedicated library with a rich collection of textbooks, reference materials, and access to scientific journals, supplementing the central university library.</li>
+            </ul>
+        </section>
     </div>
 
     <footer class="footer">
         <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        const searchForm = document.getElementById('search-form');
-        const searchInput = document.getElementById('search-input');
-        const resultsContainer = document.getElementById('results-container');
-        const apiKey = ""; // Canvas will provide this key.
-
-        searchForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            if (!query) return;
-
-            resultsContainer.innerHTML = '<div class="loader"></div>';
-
-            try {
-                const systemPrompt = "You are an expert academic librarian specializing in Biotechnology and Bioinformatics. When a user provides a topic, you must act as a search engine for a vast digital library. Provide a concise, well-structured summary of the topic using markdown for formatting. Include key concepts, relevant sub-topics, and suggest seminal works or important authors if applicable. Your response should be helpful for a university student beginning their research. Do not act as a chatbot; provide a direct, informative response as if you are presenting search results.";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                const payload = {
-                    contents: [{ parts: [{ text: query }] }],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    },
-                };
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API error: ${response.status} ${response.statusText}`);
-                }
-
-                const result = await response.json();
-
-                if (result.promptFeedback && result.promptFeedback.blockReason) {
-                    displayError(`Your query was blocked for safety reasons: ${result.promptFeedback.blockReason}. Please try a different topic.`);
-                    return;
-                }
-                
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts[0].text) {
-                    const rawText = result.candidates[0].content.parts[0].text;
-                    // Use marked.js to convert markdown to HTML
-                    const formattedHtml = marked.parse(rawText);
-                    resultsContainer.innerHTML = `<div class="result-item"><h3>Search Results for "${query}"</h3>${formattedHtml}</div>`;
-                } else {
-                    displayError("No results found. The AI could not generate a response for this topic. Please try again.");
-                }
-
-            } catch (error) {
-                console.error('Error fetching from Gemini API:', error);
-                displayError("An error occurred while fetching results. Please check your connection and try again.");
-            }
-        });
-
-        function displayError(message) {
-            resultsContainer.innerHTML = `<div class="error-message">${message}</div>`;
-        }
-    </script>
 </body>
 </html>
+
+
+
 
 
 
