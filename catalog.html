@@ -7,70 +7,142 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Times New Roman', Times, serif; background-color: #f4f4f4; color: #333; }
-        .header { background-color: #800000; color: white; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
-        .header .logo-title h1 { margin: 0; font-size: 2em; font-weight: normal; }
-        .header .logo-title p { margin: 5px 0 0; font-size: 1em; }
-        .navbar { display: flex; background-color: #333; overflow: hidden; position: sticky; top: 0; z-index: 10; }
-        .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; font-size: 17px; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Header & Navbar */
+        .header { background-color: #800000; color: white; padding: 20px 40px; display: flex; align-items: center; gap: 20px; }
+        .logo { height: 80px; width: auto; }
+        .navbar { 
+            display: flex; 
+            background-color: #333; 
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTAgMEwyMCAxMEwxMCAyMEwwIDEwWiIgZmlsbD0iIzQwNDA0MCI+PC9wYXRoPjwvc3ZnPg==');
+            position: sticky; top: 0; z-index: 10; 
+        }
+        .navbar a { flex-grow: 1; color: white; text-align: center; padding: 14px 20px; text-decoration: none; transition: 0.3s; }
         .navbar a:hover { background-color: #ddd; color: black; }
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: rgba(255, 255, 255, 0.9); border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .section-title { text-align: center; font-size: 2.2em; color: #800000; margin-bottom: 30px; }
-        .catalog-subsection { margin-bottom: 40px; }
-        .subsection-title { font-size: 1.8em; color: #500000; margin-bottom: 20px; border-bottom: 2px solid #f0e6e6; padding-bottom: 10px; }
-        .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
 
-        /* Accordion styles for subject list */
-        .accordion-item input[type="checkbox"] {
+        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: white; border-radius: 8px; }
+        .section-title { text-align: center; font-size: 2.2em; color: #800000; margin-bottom: 30px; border-bottom: 3px solid #800000; display: inline-block; width: 100%; padding-bottom: 10px; }
+        .semester-title { font-size: 1.8em; color: #500000; margin: 40px 0 20px; padding-left: 10px; border-left: 5px solid #800000; background: #fdf2f2; padding-top: 5px; padding-bottom: 5px; }
+
+        /* Grid for Subjects */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        /* Subject Card */
+        .subject-card {
+            position: relative;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .subject-card input[type="checkbox"] {
             display: none;
         }
-        .accordion-item label {
+
+        .subject-label {
             display: block;
-            padding: 16px 25px;
-            background-color: #f0e6e6;
-            color: #800000;
             cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-            font-size: 1.2em;
-            margin-bottom: 8px;
+            transition: 0.3s;
         }
-        .accordion-item label:hover {
-            background-color: #e0d8d8;
+
+        .subject-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
         }
-        .author-content {
+
+        .subject-info {
+            padding: 12px;
+            background: #800000;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .author-pane {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-            background-color: #fafafa;
-            border-radius: 0 0 8px 8px;
-            padding: 0 20px;
+            transition: max-height 0.5s ease-out, padding 0.3s;
+            background: #f9f9f9;
+            padding: 0 15px;
         }
-        .accordion-item input[type="checkbox"]:checked ~ .author-content {
-            max-height: 500px;
-            padding: 15px 20px;
-            border: 1px solid #f0e6e6;
-            border-top: none;
+
+        .subject-card input[type="checkbox"]:checked ~ .author-pane {
+            max-height: 600px;
+            padding: 15px;
+            border-top: 2px solid #800000;
         }
-        .author-content ul {
-            list-style: disc;
-            padding-left: 20px;
+
+        .author-pane h5 { color: #800000; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ddd; font-size: 0.85em; }
+        .author-pane ul { list-style: none; padding: 0; }
+        .author-pane li { margin-bottom: 8px; font-size: 0.8em; }
+        .author-pane a { color: #0000EE; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .author-pane a:hover { text-decoration: underline; color: #800000; }
+
+        /* Show More Functionality */
+        .show-more-wrapper input[type="checkbox"] {
+            display: none;
         }
-        .author-content li a {
-            color: #0000EE;
-            text-decoration: underline;
+        .extra-subjects {
+            display: none;
+            margin-top: 20px;
         }
-        .author-content li a:hover {
-            color: #551A8B;
+        .show-more-label {
+            display: block;
+            width: 200px;
+            margin: 25px auto 10px;
+            padding: 10px;
+            background: #333;
+            color: white;
+            text-align: center;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .show-more-label:hover { background: #800000; }
+        .show-more-label::before { content: "Show All Subjects ▾"; }
+        
+        /* Reveal extra subjects when toggle is checked */
+        .show-more-wrapper input[type="checkbox"]:checked ~ .extra-subjects {
+            display: grid;
+        }
+        .show-more-wrapper input[type="checkbox"]:checked ~ .show-more-label::before {
+            content: "Show Less ▴";
+        }
+
+        .footer { background-color: #333; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+
+        @media (max-width: 768px) {
+            .header { flex-direction: column; text-align: center; }
+            .navbar { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+
     <header class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3a/Sambalpur-University-logo.png" alt="Logo" class="logo">
         <div class="logo-title">
             <h1>Sambalpur University</h1>
             <p>Department of Biotechnology & Bioinformatics Library</p>
         </div>
     </header>
+
     <nav class="navbar">
         <a href="index.html">Home</a>
         <a href="catalog.html">Catalog</a>
@@ -79,166 +151,639 @@
         <a href="about.html">About Us</a>
         <a href="contact.html">Contact</a>
     </nav>
+
     <div class="container">
-        <section id="catalog">
-            <h2 class="section-title">Library Catalog (Biotechnology & Bioinformatics)</h2>
+        <h2 class="section-title">Library Catalog (BT & BI)</h2>
 
-            <!-- First Semester -->
-            <div class="catalog-subsection">
-                <h3 class="subsection-title">First Semester</h3>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj1"><label for="sem1_subj1">Chemistry of Biomolecules</label>
-                        <div class="author-content"><ul><li><a href="https://welib.org/md5/764032d2852a0960e20636806dda98dd" target="_blank">D. M. Vasudevan</a></li><li><a href="https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf" target="_blank">Lehninger</a></li></ul></div>
+        <!-- 1st Semester -->
+        <h3 class="semester-title">1st Semester</h3>
+        <div class="show-more-wrapper">
+            <div class="subject-grid">
+                <!-- Preview (First 4) -->
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_1">
+                    <label for="sem1_1" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef6ca847bab?w=400" class="subject-image" alt="Biomolecules">
+                        <div class="subject-info">Chemistry of Biomolecules</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/lehningerprincip0000lehn" target="_blank">📄 Lehninger (Nelson & Cox)</a></li>
+                            <li><a href="https://www.biochem.upenn.edu/biochem-textbook" target="_blank">📄 Berg, Tymoczko & Stryer</a></li>
+                            <li><a href="#" target="_blank">📄 Voet & Voet</a></li>
+                            <li><a href="#" target="_blank">📄 Garrett & Grisham</a></li>
+                            <li><a href="#" target="_blank">📄 J.L. Jain</a></li>
+                            <li><a href="#" target="_blank">📄 David L. Nelson</a></li>
+                            <li><a href="#" target="_blank">📄 Zubay</a></li>
+                        </ul>
                     </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj2"><label for="sem1_subj2">Genetics and Biostatistics</label>
-                        <div class="author-content"><ul><li><a href="https://pages.jh.edu/rschlei1/Random_stuff/publications/molbiogene.pdf" target="_blank">Pearson (Genetics)</a></li><li><a href="https://shorturl.at/Leey4" target="_blank">Bernard  Rosner (Biostatistics)</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_2">
+                    <label for="sem1_2" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400" class="subject-image" alt="Genetics">
+                        <div class="subject-info">Genetics & Biostatistics</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/introductiontoge008edstur" target="_blank">📄 Winchester (Genetics)</a></li>
+                            <li><a href="https://openstax.org/details/books/introductory-statistics" target="_blank">📄 OpenStax (Stats)</a></li>
+                            <li><a href="#" target="_blank">📄 Gardner</a></li>
+                            <li><a href="#" target="_blank">📄 Snustad & Simmons</a></li>
+                            <li><a href="#" target="_blank">📄 Klug & Cummings</a></li>
+                            <li><a href="#" target="_blank">📄 B.A. Pierce</a></li>
+                            <li><a href="#" target="_blank">📄 Marcello Pagano</a></li>
+                        </ul>
                     </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj3"><label for="sem1_subj3">Computer Fundamentals</label>
-                        <div class="author-content"><ul><li><a href="https://mycsvtunotes.weebly.com/uploads/1/0/1/7/10174835/computer_fundamental_complete-i.pdf" target="_blank">Pradeep K. Sinha</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_3">
+                    <label for="sem1_3" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" class="subject-image" alt="Computer">
+                        <div class="subject-info">Computer Fundamentals</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/computerfundamen00sriv" target="_blank">📄 Pradeep K. Sinha</a></li>
+                            <li><a href="#" target="_blank">📄 V. Rajaraman</a></li>
+                            <li><a href="#" target="_blank">📄 Anita Goel</a></li>
+                            <li><a href="#" target="_blank">📄 Peter Norton</a></li>
+                            <li><a href="#" target="_blank">📄 E. Balagurusamy</a></li>
+                            <li><a href="#" target="_blank">📄 Reema Thareja</a></li>
+                            <li><a href="#" target="_blank">📄 B. Ram</a></li>
+                        </ul>
                     </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj4"><label for="sem1_subj4">Molecular Biology - I</label>
-                        <div class="author-content"><ul><li><a href="https://welib.org/md5/4df4f7fa5dbf2c4cc297e36e9631d682" target="_blank">PK Gupta</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj5"><label for="sem1_subj5">Environmental Studies and Disaster Management</label>
-                        <div class="author-content"><ul><li><a href="https://www.ugc.ac.in/oldpdf/modelcurriculum/env.pdf" target="_blank">UGC Module (Environmental Studies)</a></li><li><a href="https://cdn.visionias.in/value_added_material/d6c24-disaster_management.pdf" target="_blank">Disaster Management Notes</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj6"><label for="sem1_subj6">Bioinformatics</label>
-                        <div class="author-content"><ul><li><a href="https://welib.org/md5/5ddd6b00b015ec9b51f876dac3e8118c" target="_blank">Arthur M.Lesk</a></li><li><a href="https://welib.org/md5/e9c93a124d51890ec24ca16235be152b" target="_blank">Orpita,Bosu,Oxford University Press</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem1_subj7"><label for="sem1_subj7">Microbiology</label>
-                        <div class="author-content"><ul><li><a href="https://welib.org/md5/69ec021072d8ab2f8cd1333fea24b505" target="_blank">Prescott</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_4">
+                    <label for="sem1_4" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=400" class="subject-image" alt="MolBio1">
+                        <div class="subject-info">Molecular Biology - I</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/molecularbiology0000wats" target="_blank">📄 James D. Watson</a></li>
+                            <li><a href="#" target="_blank">📄 Bruce Alberts</a></li>
+                            <li><a href="#" target="_blank">📄 Benjamin Lewin</a></li>
+                            <li><a href="#" target="_blank">📄 Lodish</a></li>
+                            <li><a href="#" target="_blank">📄 Freifelder</a></li>
+                            <li><a href="#" target="_blank">📄 Robert Weaver</a></li>
+                            <li><a href="#" target="_blank">📄 T.A. Brown</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <!-- Second Semester -->
-            <div class="catalog-subsection">
-                <h3 class="subsection-title">Second Semester</h3>
-                <div class="accordion">
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj1"><label for="sem2_subj1">Molecular Biology - II</label>
-                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/molecular-biology-of-the-gene-e187895123.html" target="_blank">James D. Watson</a></li><li><a href="https://iastate.pressbooks.pub/molecularbiogene/" target="_blank">Open Educational Resource</a></li></ul></div>
+            
+            <input type="checkbox" id="toggle_sem1">
+            <label for="toggle_sem1" class="show-more-label"></label>
+            
+            <div class="extra-subjects subject-grid">
+                <!-- Hidden (Remaining) -->
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_5">
+                    <label for="sem1_5" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" class="subject-image" alt="EnvDisaster">
+                        <div class="subject-info">Env. & Disaster Mgmt</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.ugc.ac.in/oldpdf/modelcurriculum/env.pdf" target="_blank">📄 UGC Module</a></li>
+                            <li><a href="#" target="_blank">📄 Erach Bharucha</a></li>
+                            <li><a href="#" target="_blank">📄 T.G. Miller</a></li>
+                            <li><a href="#" target="_blank">📄 NDMA Guidelines</a></li>
+                            <li><a href="#" target="_blank">📄 S.K. Singh</a></li>
+                            <li><a href="#" target="_blank">📄 P. Bakre</a></li>
+                            <li><a href="#" target="_blank">📄 R. Rajagopalan</a></li>
+                        </ul>
                     </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj2"><label for="sem2_subj2">Bioenergetics and Metabolism</label>
-                        <div class="author-content"><ul><li><a href="https://www.academia.edu/43922731/Lehninger_Principles_of_Biochemistry" target="_blank">Lehninger</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_6">
+                    <label for="sem1_6" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=400" class="subject-image" alt="Bioinfo">
+                        <div class="subject-info">Bioinformatics</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK21122/" target="_blank">📄 David W. Mount</a></li>
+                            <li><a href="#" target="_blank">📄 Arthur M. Lesk</a></li>
+                            <li><a href="#" target="_blank">📄 Zvelebil & Baum</a></li>
+                            <li><a href="#" target="_blank">📄 Pavel Pevzner</a></li>
+                            <li><a href="#" target="_blank">📄 Baxevanis</a></li>
+                            <li><a href="#" target="_blank">📄 Ghosh & Mallick</a></li>
+                            <li><a href="#" target="_blank">📄 Jin Xiong</a></li>
+                        </ul>
                     </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj4"><label for="sem2_subj4">Operating System and Basic Programming</label>
-                        <div class="author-content"><ul><li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">Arpaci-Dusseau (OS)</a></li><li><a href="https://www.ibiblio.org/g2swap/byteofpython/read/" target="_blank">Swaroop C H (Python)</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj5"><label for="sem2_subj5">Python Programming</label>
-                        <div class="author-content"><ul><li><a href="https://automatetheboringstuff.com/2e/chapter0/" target="_blank">Al Sweigart</a></li><li><a href="https://greenteapress.com/wp/think-python-2e/" target="_blank">Allen B. Downey</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj6"><label for="sem2_subj6">Instrumentation Techniques</label>
-                        <div class="author-content"><ul><li><a href="https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Book%3A_Instrumental_Analysis_(LibreTexts)" target="_blank">Chem LibreTexts</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem2_subj7"><label for="sem2_subj7">Industrial Microbiology</label>
-                        <div class="author-content"><ul><li><a href="https://archive.org/details/prescottsmicrobi0000unse" target="_blank">Prescott's Microbiology (Relevant Chapters)</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem1_7">
+                    <label for="sem1_7" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1583912267550-d44d4a3c5a71?w=400" class="subject-image" alt="Micro">
+                        <div class="subject-info">Microbiology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://openstax.org/details/books/microbiology" target="_blank">📄 OpenStax</a></li>
+                            <li><a href="#" target="_blank">📄 Prescott</a></li>
+                            <li><a href="#" target="_blank">📄 Pelczar</a></li>
+                            <li><a href="#" target="_blank">📄 Tortora</a></li>
+                            <li><a href="#" target="_blank">📄 Brock</a></li>
+                            <li><a href="#" target="_blank">📄 Stanier</a></li>
+                            <li><a href="#" target="_blank">📄 Ananthanarayan</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Third Semester -->
-             <div class="catalog-subsection">
-                <h3 class="subsection-title">Third Semester</h3>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj1"><label for="sem3_subj1">Recombinant DNA Technology, IPRs and Bioethics
-</label>
-                        <div class="author-content"><ul><li><a href="https://dst.gov.in/sites/default/files/E-BOOK%20IPR.pdf" target="_blank">Prof. Rupinder Tewari
-</a></li><li><a href="https://www.wipo.int/edocs/pubdocs/en/wipo_pub_450_2020.pdf" target="_blank">WIPO (Understanding IPR)</a></li></ul></div>
+        <!-- 2nd Semester -->
+        <h3 class="semester-title">2nd Semester</h3>
+        <div class="show-more-wrapper">
+            <div class="subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_1">
+                    <label for="sem2_1" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=400" class="subject-image" alt="MolBio2">
+                        <div class="subject-info">Molecular Biology - II</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/molecularbiology0000wats" target="_blank">📄 Watson</a></li>
+                            <li><a href="#" target="_blank">📄 Lewin</a></li>
+                            <li><a href="#" target="_blank">📄 Alberts</a></li>
+                            <li><a href="#" target="_blank">📄 Lodish</a></li>
+                            <li><a href="#" target="_blank">📄 Freifelder</a></li>
+                            <li><a href="#" target="_blank">📄 Brown</a></li>
+                            <li><a href="#" target="_blank">📄 Weaver</a></li>
+                        </ul>
                     </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj2"><label for="sem3_subj2">Computer Aided Drug Design</label>
-                        <div class="author-content"><ul><li><a href="https://cdn.intechopen.com/pdfs/35730/InTech-Computational_drug_design_a_guide_for_computational_and_medicinal_chemists.pdf" target="_blank">IntechOpen Chapter</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_2">
+                    <label for="sem2_2" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1532187875605-1ef6ca847bab?w=400" class="subject-image" alt="Metabolism">
+                        <div class="subject-info">Bioenergetics & Metabolism</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/lehningerprincip0000lehn" target="_blank">📄 Lehninger</a></li>
+                            <li><a href="#" target="_blank">📄 Voet & Voet</a></li>
+                            <li><a href="#" target="_blank">📄 Stryer</a></li>
+                            <li><a href="#" target="_blank">📄 Zubay</a></li>
+                            <li><a href="#" target="_blank">📄 Metzler</a></li>
+                            <li><a href="#" target="_blank">📄 Nicholls</a></li>
+                            <li><a href="#" target="_blank">📄 Nichols & Cox</a></li>
+                        </ul>
                     </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj3"><label for="sem3_subj3">Database Management System</label>
-                        <div class="author-content"><ul><li><a href="https://www.databasteknik.se/db-2019/db-2019-vt/Course-literature-DB-book-3rd-edition.pdf" target="_blank">Ramakrishnan & Gehrke</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_3">
+                    <label for="sem2_3" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400" class="subject-image" alt="OS">
+                        <div class="subject-info">OS & Basic Programming</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank">📄 Arpaci-Dusseau</a></li>
+                            <li><a href="#" target="_blank">📄 Silberschatz</a></li>
+                            <li><a href="#" target="_blank">📄 Tanenbaum</a></li>
+                            <li><a href="#" target="_blank">📄 Stallings</a></li>
+                            <li><a href="#" target="_blank">📄 Kernighan & Ritchie</a></li>
+                            <li><a href="#" target="_blank">📄 Balagurusamy</a></li>
+                            <li><a href="#" target="_blank">📄 Kanetkar</a></li>
+                        </ul>
                     </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj4"><label for="sem3_subj4">Computational Biology</label>
-                        <div class="author-content"><ul><li><a href="https://clinref.com/data/uploads/books/LehningerBiochemistry6thed.pdf" target="_blank">Orpita Basu</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj5"><label for="sem3_subj5">Microbiology and Immunology</label>
-                        <div class="author-content"><ul><li><a href="https://archive.org/details/kubyimmunology" target="_blank">Janis Kuby (Immunology)</a></li><li><a href="https://openstax.org/details/books/microbiology" target="_blank">OpenStax (Microbiology)</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj6"><label for="sem3_subj6">Entrepreneurship Development</label>
-                        <div class="author-content"><ul><li><a href="https://www.ediindia.org/wp-content/uploads/2022/01/Fundamentals-of-Entrepreneurship-and-Project-Management-Final.pdf" target="_blank">EDII India</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj7"><label for="sem3_subj7">How to Give a Seminar</label>
-                        <div class="author-content"><ul><li><a href="https://tu-dresden.de/bu/wirtschaft/bwl/ee2/ressourcen/dateien/dateien/lehre/EE2_Scient_Writing_Working_01022020.pdf?lang=en" target="_blank">UNSW Guide</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj8"><label for="sem3_subj8">Plant and Animal Biotechnology</label>
-                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/plant-biotechnology-and-genetics-principles-techniques-and-applications-e158223963.html" target="_blank">Slater (Plant)</a></li><li><a href="https://www.pdfdrive.com/animal-biotechnology-e18712304.html" target="_blank">M. M. Ranga (Animal)</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem3_subj9"><label for="sem3_subj9">Cell Culture and Developmental Biology</label>
-                        <div class="author-content"><ul><li><a href="https://archive.org/details/freshneycultureofanimalcells" target="_blank">R. Ian Freshney (Cell Culture)</a></li><li><a href="https://www.ncbi.nlm.nih.gov/books/NBK9963/" target="_blank">Scott F. Gilbert (Developmental Bio)</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_4">
+                    <label for="sem2_4" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400" class="subject-image" alt="Python">
+                        <div class="subject-info">Python Programming</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://greenteapress.com/wp/think-python-2e/" target="_blank">📄 Allen Downey</a></li>
+                            <li><a href="#" target="_blank">📄 Al Sweigart</a></li>
+                            <li><a href="#" target="_blank">📄 Mark Lutz</a></li>
+                            <li><a href="#" target="_blank">📄 Eric Matthes</a></li>
+                            <li><a href="#" target="_blank">📄 Wes McKinney</a></li>
+                            <li><a href="#" target="_blank">📄 Zed Shaw</a></li>
+                            <li><a href="#" target="_blank">📄 Jake VanderPlas</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <!-- Fourth Semester -->
-            <div class="catalog-subsection">
-                <h3 class="subsection-title">Fourth Semester</h3>
-                <div class="accordion">
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj1"><label for="sem4_subj1">Genomics, Proteomics and Metabolomics</label>
-                        <div class="author-content"><ul><li><a href="https://ocw.mit.edu/courses/7-341-genomics-and-evolution-fall-2018/resources/mit7_341f18_lec1/" target="_blank">MIT OpenCourseWare (Genomics)</a></li><li><a href="https://www.ncbi.nlm.nih.gov/books/NBK21226/" target="_blank">NCBI Bookshelf (Proteomics)</a></li></ul></div>
+            
+            <input type="checkbox" id="toggle_sem2">
+            <label for="toggle_sem2" class="show-more-label"></label>
+            
+            <div class="extra-subjects subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_5">
+                    <label for="sem2_5" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=400" class="subject-image" alt="Instrum">
+                        <div class="subject-info">Instrumentation Techniques</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://chem.libretexts.org/" target="_blank">📄 Willard</a></li>
+                            <li><a href="#" target="_blank">📄 Wilson & Walker</a></li>
+                            <li><a href="#" target="_blank">📄 Skoog & Holler</a></li>
+                            <li><a href="#" target="_blank">📄 Chatwal & Anand</a></li>
+                            <li><a href="#" target="_blank">📄 Khandpur</a></li>
+                            <li><a href="#" target="_blank">📄 Cooper</a></li>
+                            <li><a href="#" target="_blank">📄 Nakra</a></li>
+                        </ul>
                     </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj2"><label for="sem4_subj2">AI and ML in Bioinformatics</label>
-                        <div class="author-content"><ul><li><a href="https://www.cs.princeton.edu/courses/archive/spring19/cos324/files/machine-learning-and-bioinformatics.pdf" target="_blank">Princeton CS Lecture</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj3"><label for="sem4_subj3">Big Data Analysis</label>
-                        <div class="author-content"><ul><li><a href="http://www.mmds.org/" target="_blank">Leskovec, Rajaraman & Ullman</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj4"><label for="sem4_subj4">NGS Data Analysis</label>
-                        <div class="author-content"><ul><li><a href="https://hbc.github.io/Bioinformatics_data_analysis/" target="_blank">Harvard Bioinformatics Core</a></li></ul></div>
-                    </div>
-                     <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj5"><label for="sem4_subj5">Bioprocess Engineering</label>
-                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/bioprocess-engineering-principles-e29881181.html" target="_blank">Pauline M. Doran</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj6"><label for="sem4_subj6">Agricultural Biotechnology</label>
-                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/an-introduction-to-agricultural-biotechnology-e158288599.html" target="_blank">H.S. Chawla</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj7"><label for="sem4_subj7">Environmental Biotechnology</label>
-                        <div class="author-content"><ul><li><a href="https://welib.org/md5/83a80fd079c7a95a28df4f3656a036c9" target="_blank">Bruce E. Rittmann</a></li></ul></div>
-                    </div>
-                    <div class="accordion-item">
-                        <input type="checkbox" id="sem4_subj8"><label for="sem4_subj8">Pharmaceutical Biotechnology</label>
-                        <div class="author-content"><ul><li><a href="https://www.pdfdrive.com/pharmaceutical-biotechnology-fundamentals-and-applications-e19525281.html" target="_blank">Daan J.A. Crommelin</a></li></ul></div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem2_6">
+                    <label for="sem2_6" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" class="subject-image" alt="IndMicro">
+                        <div class="subject-info">Industrial Microbiology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/prescottsmicrobi0000unse" target="_blank">📄 Prescott</a></li>
+                            <li><a href="#" target="_blank">📄 Casida</a></li>
+                            <li><a href="#" target="_blank">📄 Cruger</a></li>
+                            <li><a href="#" target="_blank">📄 A.H. Patel</a></li>
+                            <li><a href="#" target="_blank">📄 Peppler</a></li>
+                            <li><a href="#" target="_blank">📄 Waites</a></li>
+                            <li><a href="#" target="_blank">📄 Reed</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
 
-        </section>
+        <!-- 3rd Semester -->
+        <h3 class="semester-title">3rd Semester</h3>
+        <div class="show-more-wrapper">
+            <div class="subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_1">
+                    <label for="sem3_1" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400" class="subject-image" alt="RDT">
+                        <div class="subject-info">RDT, IPR & Bioethics</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="http://library.umac.mo/ebooks/b2805063x.pdf" target="_blank">📄 Brown</a></li>
+                            <li><a href="#" target="_blank">📄 Primrose</a></li>
+                            <li><a href="#" target="_blank">📄 Glick</a></li>
+                            <li><a href="#" target="_blank">📄 WIPO</a></li>
+                            <li><a href="#" target="_blank">📄 Indian Patent Act</a></li>
+                            <li><a href="#" target="_blank">📄 Sateesh</a></li>
+                            <li><a href="#" target="_blank">📄 Sree Krishna</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_2">
+                    <label for="sem3_2" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1507668077129-5913da84c86f?w=400" class="subject-image" alt="Drug">
+                        <div class="subject-info">CADD (Drug Design)</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://cdn.intechopen.com/" target="_blank">📄 Leach</a></li>
+                            <li><a href="#" target="_blank">📄 Patrick</a></li>
+                            <li><a href="#" target="_blank">📄 Krogsgaard-Larsen</a></li>
+                            <li><a href="#" target="_blank">📄 Foye</a></li>
+                            <li><a href="#" target="_blank">📄 Young</a></li>
+                            <li><a href="#" target="_blank">📄 Gu & Bourne</a></li>
+                            <li><a href="#" target="_blank">📄 Holtje</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_3">
+                    <label for="sem3_3" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef0109121c74?w=400" class="subject-image" alt="DBMS">
+                        <div class="subject-info">DBMS</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.databasteknik.se/" target="_blank">📄 Ramakrishnan</a></li>
+                            <li><a href="#" target="_blank">📄 Korth</a></li>
+                            <li><a href="#" target="_blank">📄 Navathe</a></li>
+                            <li><a href="#" target="_blank">📄 Date</a></li>
+                            <li><a href="#" target="_blank">📄 Ivan Bayross</a></li>
+                            <li><a href="#" target="_blank">📄 Chopra</a></li>
+                            <li><a href="#" target="_blank">📄 Bhattacharyya</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_4">
+                    <label for="sem3_4" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1551288049-bbbda5366391?w=400" class="subject-image" alt="CB">
+                        <div class="subject-info">Computational Biology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.cs.cmu.edu/~compbio/" target="_blank">📄 CMU Notes</a></li>
+                            <li><a href="#" target="_blank">📄 Waterman</a></li>
+                            <li><a href="#" target="_blank">📄 Haubold</a></li>
+                            <li><a href="#" target="_blank">📄 Durbin</a></li>
+                            <li><a href="#" target="_blank">📄 Baldi</a></li>
+                            <li><a href="#" target="_blank">📄 Salzberg</a></li>
+                            <li><a href="#" target="_blank">📄 Claverie</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <input type="checkbox" id="toggle_sem3">
+            <label for="toggle_sem3" class="show-more-label"></label>
+            
+            <div class="extra-subjects subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_5">
+                    <label for="sem3_5" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1583912267550-d44d4a3c5a71?w=400" class="subject-image" alt="Immuno">
+                        <div class="subject-info">Microbio & Immunology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://archive.org/details/kubyimmunology" target="_blank">📄 Kuby</a></li>
+                            <li><a href="#" target="_blank">📄 Roitt</a></li>
+                            <li><a href="#" target="_blank">📄 Abbas</a></li>
+                            <li><a href="#" target="_blank">📄 Janeway</a></li>
+                            <li><a href="#" target="_blank">📄 Prescott</a></li>
+                            <li><a href="#" target="_blank">📄 Pelczar</a></li>
+                            <li><a href="#" target="_blank">📄 Tortora</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_6">
+                    <label for="sem3_6" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400" class="subject-image" alt="Entr">
+                        <div class="subject-info">Entrepreneurship Dev.</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.ediindia.org/" target="_blank">📄 EDII India</a></li>
+                            <li><a href="#" target="_blank">📄 Vasant Desai</a></li>
+                            <li><a href="#" target="_blank">📄 Robert Hisrich</a></li>
+                            <li><a href="#" target="_blank">📄 David Holt</a></li>
+                            <li><a href="#" target="_blank">📄 Drucker</a></li>
+                            <li><a href="#" target="_blank">📄 Khanka</a></li>
+                            <li><a href="#" target="_blank">📄 S.K. Mohanty</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_7">
+                    <label for="sem3_7" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb28f74b083?w=400" class="subject-image" alt="Sem">
+                        <div class="subject-info">How to Give a Seminar</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://cgi.cse.unsw.edu.au/~cs9315/" target="_blank">📄 UNSW Guide</a></li>
+                            <li><a href="#" target="_blank">📄 Lowth</a></li>
+                            <li><a href="#" target="_blank">📄 Reynolds</a></li>
+                            <li><a href="#" target="_blank">📄 Duarte</a></li>
+                            <li><a href="#" target="_blank">📄 Carnegie</a></li>
+                            <li><a href="#" target="_blank">📄 Chris Anderson</a></li>
+                            <li><a href="#" target="_blank">📄 Stephen Lucas</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_8">
+                    <label for="sem3_8" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1530836361253-efad5cb2feec?w=400" class="subject-image" alt="PAB">
+                        <div class="subject-info">Plant & Animal Biotech</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.pdfdrive.com/plant-biotechnology-e158223963.html" target="_blank">📄 Slater</a></li>
+                            <li><a href="#" target="_blank">📄 Chawla</a></li>
+                            <li><a href="#" target="_blank">📄 B.D. Singh</a></li>
+                            <li><a href="#" target="_blank">📄 Freshney</a></li>
+                            <li><a href="#" target="_blank">📄 Ranga</a></li>
+                            <li><a href="#" target="_blank">📄 Satyanarayana</a></li>
+                            <li><a href="#" target="_blank">📄 P.K. Gupta</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem3_9">
+                    <label for="sem3_9" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=400" class="subject-image" alt="CellC">
+                        <div class="subject-info">Cell Culture & Dev. Bio</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK9963/" target="_blank">📄 Scott Gilbert</a></li>
+                            <li><a href="#" target="_blank">📄 Wolpert</a></li>
+                            <li><a href="#" target="_blank">📄 Freshney</a></li>
+                            <li><a href="#" target="_blank">📄 Alberts</a></li>
+                            <li><a href="#" target="_blank">📄 Karp</a></li>
+                            <li><a href="#" target="_blank">📄 Kleinsmith</a></li>
+                            <li><a href="#" target="_blank">📄 Pollard</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4th Semester -->
+        <h3 class="semester-title">4th Semester</h3>
+        <div class="show-more-wrapper">
+            <div class="subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_1">
+                    <label for="sem4_1" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1507668077129-5913da84c86f?w=400" class="subject-image" alt="GPM">
+                        <div class="subject-info">Genomics & Proteomics</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://ocw.mit.edu/" target="_blank">📄 MIT OCW</a></li>
+                            <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK21226/" target="_blank">📄 Proteomics</a></li>
+                            <li><a href="#" target="_blank">📄 Primrose</a></li>
+                            <li><a href="#" target="_blank">📄 T.A. Brown</a></li>
+                            <li><a href="#" target="_blank">📄 Twyman</a></li>
+                            <li><a href="#" target="_blank">📄 Gibson</a></li>
+                            <li><a href="#" target="_blank">📄 Liebler</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_2">
+                    <label for="sem4_2" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1555255707-c07966488bc0?w=400" class="subject-image" alt="AI">
+                        <div class="subject-info">AI & ML in Bioinformatics</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.cs.princeton.edu/" target="_blank">📄 Princeton</a></li>
+                            <li><a href="#" target="_blank">📄 Bishop</a></li>
+                            <li><a href="#" target="_blank">📄 Mitchell</a></li>
+                            <li><a href="#" target="_blank">📄 Goodfellow</a></li>
+                            <li><a href="#" target="_blank">📄 Baldi</a></li>
+                            <li><a href="#" target="_blank">📄 Larrañaga</a></li>
+                            <li><a href="#" target="_blank">📄 Hastie</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_3">
+                    <label for="sem4_3" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1551288049-bbbda5366391?w=400" class="subject-image" alt="BigD">
+                        <div class="subject-info">Big Data Analysis</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="http://www.mmds.org/" target="_blank">📄 Leskovec</a></li>
+                            <li><a href="#" target="_blank">📄 Nathan Marz</a></li>
+                            <li><a href="#" target="_blank">📄 Schmarzo</a></li>
+                            <li><a href="#" target="_blank">📄 Mayer-Schonberger</a></li>
+                            <li><a href="#" target="_blank">📄 Hurwitz</a></li>
+                            <li><a href="#" target="_blank">📄 Thomas Erl</a></li>
+                            <li><a href="#" target="_blank">📄 Bernard Marr</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_4">
+                    <label for="sem4_4" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1507668077129-5913da84c86f?w=400" class="subject-image" alt="NGS">
+                        <div class="subject-info">NGS Data Analysis</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://hbc.github.io/Bioinformatics_data_analysis/" target="_blank">📄 Harvard</a></li>
+                            <li><a href="#" target="_blank">📄 Xinkun Wang</a></li>
+                            <li><a href="#" target="_blank">📄 Stuart Brown</a></li>
+                            <li><a href="#" target="_blank">📄 Masoudi-Nejad</a></li>
+                            <li><a href="#" target="_blank">📄 Singh</a></li>
+                            <li><a href="#" target="_blank">📄 Schadt</a></li>
+                            <li><a href="#" target="_blank">📄 Birney</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <input type="checkbox" id="toggle_sem4">
+            <label for="toggle_sem4" class="show-more-label"></label>
+            
+            <div class="extra-subjects subject-grid">
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_5">
+                    <label for="sem4_5" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400" class="subject-image" alt="Biopro">
+                        <div class="subject-info">Bioprocess Engineering</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.pdfdrive.com/bioprocess-engineering-principles-e29881181.html" target="_blank">📄 Pauline Doran</a></li>
+                            <li><a href="#" target="_blank">📄 Shuler & Kargi</a></li>
+                            <li><a href="#" target="_blank">📄 Blanch & Clark</a></li>
+                            <li><a href="#" target="_blank">📄 Lee</a></li>
+                            <li><a href="#" target="_blank">📄 Stanbury</a></li>
+                            <li><a href="#" target="_blank">📄 Bailey</a></li>
+                            <li><a href="#" target="_blank">📄 Belter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_6">
+                    <label for="sem4_6" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1530836361253-efad5cb2feec?w=400" class="subject-image" alt="Agri">
+                        <div class="subject-info">Agri. Biotechnology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.pdfdrive.com/an-introduction-to-agricultural-biotechnology-e158288599.html" target="_blank">📄 Chawla</a></li>
+                            <li><a href="#" target="_blank">📄 B.D. Singh</a></li>
+                            <li><a href="#" target="_blank">📄 Primrose</a></li>
+                            <li><a href="#" target="_blank">📄 Murphy</a></li>
+                            <li><a href="#" target="_blank">📄 Ray-Yu Yang</a></li>
+                            <li><a href="#" target="_blank">📄 Altmann</a></li>
+                            <li><a href="#" target="_blank">📄 G.J. Lawrence</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_7">
+                    <label for="sem4_7" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400" class="subject-image" alt="Env">
+                        <div class="subject-info">Env. Biotechnology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.pdfdrive.com/environmental-biotechnology-e26017006.html" target="_blank">📄 Bruce Rittmann</a></li>
+                            <li><a href="#" target="_blank">📄 Gareth Evans</a></li>
+                            <li><a href="#" target="_blank">📄 S.N. Jogdand</a></li>
+                            <li><a href="#" target="_blank">📄 Wainwright</a></li>
+                            <li><a href="#" target="_blank">📄 Scragg</a></li>
+                            <li><a href="#" target="_blank">📄 Mohapatra</a></li>
+                            <li><a href="#" target="_blank">📄 Thakur</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="subject-card">
+                    <input type="checkbox" id="sem4_8">
+                    <label for="sem4_8" class="subject-label">
+                        <img src="https://images.unsplash.com/photo-1579165466541-74e24690554a?w=400" class="subject-image" alt="Pharma">
+                        <div class="subject-info">Pharma. Biotechnology</div>
+                    </label>
+                    <div class="author-pane">
+                        <h5>Recommended Authors:</h5>
+                        <ul>
+                            <li><a href="https://www.pdfdrive.com/pharmaceutical-biotechnology-fundamentals-and-applications-e19525281.html" target="_blank">📄 Daan Crommelin</a></li>
+                            <li><a href="#" target="_blank">📄 Gary Walsh</a></li>
+                            <li><a href="#" target="_blank">📄 K. Sambamurthy</a></li>
+                            <li><a href="#" target="_blank">📄 S.P. Vyas</a></li>
+                            <li><a href="#" target="_blank">📄 O. Kayzer</a></li>
+                            <li><a href="#" target="_blank">📄 Klefenz</a></li>
+                            <li><a href="#" target="_blank">📄 Groves</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <footer class="footer">
-        <p>&copy; 2024 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
+        <p>&copy; 2026 Sambalpur University, Department of BT & BI. All Rights Reserved.</p>
     </footer>
+
 </body>
 </html>
-
-
